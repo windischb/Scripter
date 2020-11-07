@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
-using Utf8Json;
+using Newtonsoft.Json;
+using Reflectensions;
+
 
 namespace Scripter.HttpModule
 {
@@ -105,7 +107,7 @@ namespace Scripter.HttpModule
                 return httpContent;
             }
 
-            await CreateJsonHttpContent(content, ms);
+            CreateJsonHttpContent(content, ms);
             ms.Seek(0, SeekOrigin.Begin);
             httpContent = new StreamContent(ms);
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -113,15 +115,14 @@ namespace Scripter.HttpModule
             return httpContent;
         }
 
-        private async Task CreateJsonHttpContent(object content, Stream stream)
+        private void CreateJsonHttpContent(object content, Stream stream)
         {
             using (var sw = new StreamWriter(stream, new UTF8Encoding(false), 1024, true))
             {
-                await JsonSerializer.SerializeAsync(stream, content);
+                Json.Converter.JsonSerializer.Serialize(sw, content);
+                
             }
 
-           
-            
         }
     }
 }

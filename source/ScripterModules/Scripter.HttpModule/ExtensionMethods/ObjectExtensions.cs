@@ -2,7 +2,7 @@
 using System.Dynamic;
 using System.Linq;
 using System.Net.Http.Headers;
-using Utf8Json;
+using Reflectensions;
 
 namespace Scripter.HttpModule.ExtensionMethods
 {
@@ -11,7 +11,7 @@ namespace Scripter.HttpModule.ExtensionMethods
         
         public static ExpandoObject ToExpandoObject(this object @object)
         {
-            return JsonSerializer.Deserialize<ExpandoObject>(JsonSerializer.Serialize(@object));
+            return Json.Converter.ToObject<ExpandoObject>(Json.Converter.ToJson(@object));
         }
 
         public static ExpandoObject ToExpandoObject(this HttpHeaders headers)

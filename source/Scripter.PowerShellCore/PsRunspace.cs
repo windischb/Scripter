@@ -78,7 +78,7 @@ namespace Scripter.PowerShellCore
 
                     if (errorList.Any())
                     {
-                        //throw new Exception(String.Join(Environment.NewLine, errorList));
+                        throw new Exception(String.Join(Environment.NewLine, errorList));
                     }
 
 
@@ -88,12 +88,6 @@ namespace Scripter.PowerShellCore
                 {
                     throw new Exception($"{rex.ErrorRecord.Exception.Message}{Environment.NewLine}{rex.ErrorRecord.InvocationInfo.PositionMessage}");
                 }
-                catch (Exception ex)
-                {
-                   
-                    throw;
-                }
-                
             }
             
         }

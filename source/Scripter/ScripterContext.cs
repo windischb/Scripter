@@ -18,7 +18,7 @@ namespace Scripter
         public IScripterContext AddScripterEngine<TEngine>() where TEngine : class, IScriptEngine
         {
             var engineType = typeof(TEngine);
-            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Language ?? TrimEnd(engineType.Name, "Engine");
+            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
             return AddScripterEngine<TEngine>(language);
         }
 
@@ -32,7 +32,7 @@ namespace Scripter
         public IScripterContext AddScripterEngine<TEngine>(Func<IServiceProvider, TEngine> factory) where TEngine : class, IScriptEngine
         {
             var engineType = typeof(TEngine);
-            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Language ?? TrimEnd(engineType.Name, "Engine");
+            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
             return AddScripterEngine<TEngine>(language, factory);
         }
 
