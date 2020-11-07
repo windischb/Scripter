@@ -24,6 +24,7 @@ namespace Scripter
 
         public IScripterContext AddScripterEngine<TEngine>(string language) where TEngine: class, IScriptEngine
         {
+            _serviceCollection.AddTransient<TEngine>();
             _serviceCollection.AddNamedTransient<IScriptEngine, TEngine>(language);
             return this;
         }
@@ -37,6 +38,7 @@ namespace Scripter
 
         public IScripterContext AddScripterEngine<TEngine>(string language, Func<IServiceProvider, TEngine> factory) where TEngine : class, IScriptEngine
         {
+            _serviceCollection.AddTransient<TEngine>(factory);
             _serviceCollection.AddNamedTransient<IScriptEngine, TEngine>(language, factory);
             return this;
         }
