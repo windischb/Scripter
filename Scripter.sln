@@ -3,19 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30615.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter", "Scripter\Scripter.csproj", "{F0F088C1-42B7-49F3-8526-1B6940F84044}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter", "source\Scripter\Scripter.csproj", "{F0F088C1-42B7-49F3-8526-1B6940F84044}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.JavaScript", "Scripter.JavaScript\Scripter.JavaScript.csproj", "{46D0D46F-7645-4CFF-85A8-755B1514633A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.JavaScript", "source\Scripter.JavaScript\Scripter.JavaScript.csproj", "{46D0D46F-7645-4CFF-85A8-755B1514633A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.Shared", "Scripter.Shared\Scripter.Shared.csproj", "{1878B59B-3D14-4764-B0FF-9B4E9BECB328}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.Shared", "source\Scripter.Shared\Scripter.Shared.csproj", "{1878B59B-3D14-4764-B0FF-9B4E9BECB328}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScripterModules", "ScripterModules", "{A5E3D2CF-2D75-4A03-B75A-A5B792139485}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleWriter", "ScripterModules\ConsoleWriter\ConsoleWriter.csproj", "{2C647AF5-8454-45C9-8B29-F6C07D30C680}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.ConsoleWriter", "source\ScripterModules\Scripter.ConsoleWriter\Scripter.ConsoleWriter.csproj", "{2C647AF5-8454-45C9-8B29-F6C07D30C680}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.PowershellCore", "Scripter.PowershellCore\Scripter.PowershellCore.csproj", "{B1C372A5-00F9-40C2-9AFB-E996FF381D25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.PowerShellCore", "source\Scripter.PowerShellCore\Scripter.PowerShellCore.csproj", "{B1C372A5-00F9-40C2-9AFB-E996FF381D25}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpModule", "ScripterModules\HttpModule\HttpModule.csproj", "{DC2E81DB-9FAB-4878-81F6-639297B3278A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.HttpModule", "source\ScripterModules\Scripter.HttpModule\Scripter.HttpModule.csproj", "{DC2E81DB-9FAB-4878-81F6-639297B3278A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "_build\_build.csproj", "{113A8496-B9FF-4348-9491-24C5EB491C99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowershellCoreTests", "tests\PowershellCoreTests\PowershellCoreTests.csproj", "{4356A6B8-ACB6-4943-B031-89EAA1A4784A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0EC324A7-4C5A-4B6F-8CA4-3385F5E6A3EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripter.TypeScript", "source\Scripter.TypeScript\Scripter.TypeScript.csproj", "{759AD4F9-2371-4A5A-B13B-3730235B901B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +55,16 @@ Global
 		{DC2E81DB-9FAB-4878-81F6-639297B3278A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC2E81DB-9FAB-4878-81F6-639297B3278A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC2E81DB-9FAB-4878-81F6-639297B3278A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{113A8496-B9FF-4348-9491-24C5EB491C99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{113A8496-B9FF-4348-9491-24C5EB491C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4356A6B8-ACB6-4943-B031-89EAA1A4784A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4356A6B8-ACB6-4943-B031-89EAA1A4784A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4356A6B8-ACB6-4943-B031-89EAA1A4784A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4356A6B8-ACB6-4943-B031-89EAA1A4784A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{759AD4F9-2371-4A5A-B13B-3730235B901B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{759AD4F9-2371-4A5A-B13B-3730235B901B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{759AD4F9-2371-4A5A-B13B-3730235B901B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{759AD4F9-2371-4A5A-B13B-3730235B901B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +72,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2C647AF5-8454-45C9-8B29-F6C07D30C680} = {A5E3D2CF-2D75-4A03-B75A-A5B792139485}
 		{DC2E81DB-9FAB-4878-81F6-639297B3278A} = {A5E3D2CF-2D75-4A03-B75A-A5B792139485}
+		{4356A6B8-ACB6-4943-B031-89EAA1A4784A} = {0EC324A7-4C5A-4B6F-8CA4-3385F5E6A3EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3A15FCC7-474C-4E9B-B0E0-DE6428BF822B}
