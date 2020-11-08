@@ -16,10 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\source\Scripter.Shared\Scripter.Shared.csproj" />
-    <ProjectReference Include="..\..\source\Scripter.TypeScript\Scripter.TypeScript.csproj" />
-    <ProjectReference Include="..\..\source\ScripterModules\Scripter.ConsoleWriter\Scripter.ConsoleWriter.csproj" />
-    <ProjectReference Include="..\..\source\ScripterModules\Scripter.HttpModule\Scripter.HttpModule.csproj" />
+    <ProjectReference Include="..\..\source\Scripter.Engine.TypeScript\Scripter.Engine.TypeScript.csproj" />
+    <ProjectReference Include="..\..\source\Scripter.Modules.Default\Scripter.Modules.Default.csproj" />
     <ProjectReference Include="..\..\source\Scripter\Scripter.csproj" />
   </ItemGroup>
 

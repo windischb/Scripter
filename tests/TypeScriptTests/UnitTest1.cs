@@ -4,11 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
 using Reflectensions;
 using Scripter;
-using Scripter.ConsoleWriter;
-using Scripter.HttpModule;
-using Scripter.JavaScript;
+using Scripter.Engine.TypeScript;
+using Scripter.Module.ConsoleWriter;
+using Scripter.Module.Http;
 using Scripter.Shared;
-using Scripter.TypeScript;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -27,7 +26,7 @@ namespace TypeScriptTests
             sc.AddScripter(options => options
                 .AddTypeScriptEngine()
                 .AddScripterModule<ConsoleWriterModule>()
-                .AddScripterModule<Http>()
+                .AddScripterModule<HttpModule>()
             );
 
 
@@ -52,7 +51,32 @@ con.WriteLine('Hello')
            
         }
 
-       
+        [Fact]
+        public async Task HttpResponseAsObject()
+        {
+            var tsEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("TypeScript");
+
+            var tsScript = @"
+import * as http from 'Http';
+import * as variables from 'Variables';
+
+
+var cl = http.Client('http://10.0.0.21:8123/api/states/switch.buero_fan_buero_ventilator')
+                    .SetBearerToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5M2VmNDdiNDc4ODg0MmI1YjFkYzM0OThjNjM0MWRiNyIsImlhdCI6MTYwMzkxNTA3OCwiZXhwIjoxOTE5Mjc1MDc4fQ.vTY4JseQEpmOkJw1UOkTWiyjALuewgtUR7HvaEqglKA'));
+
+                    var resp = cl.Get().Content.AsObject();
+
+                    
+
+";
+
+            var jsScript = tsEngine.CompileScript(tsScript);
+
+            await tsEngine.ExecuteAsync(jsScript);
+
+        }
+
+
     }
 }
 

@@ -16,11 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\source\Scripter.PowerShellCore\Scripter.PowerShellCore.csproj" />
-    <ProjectReference Include="..\..\source\Scripter.Shared\Scripter.Shared.csproj" />
-    <ProjectReference Include="..\..\source\ScripterModules\Scripter.ConsoleWriter\Scripter.ConsoleWriter.csproj" />
-    <ProjectReference Include="..\..\source\ScripterModules\Scripter.HttpModule\Scripter.HttpModule.csproj" />
+    <ProjectReference Include="..\..\source\Scripter.Engine.PowerShellCore\Scripter.Engine.PowerShellCore.csproj" />
+    <ProjectReference Include="..\..\source\Scripter.Modules.Default\Scripter.Modules.Default.csproj" />
     <ProjectReference Include="..\..\source\Scripter\Scripter.csproj" />
   </ItemGroup>
+
+ 
 
 </Project>

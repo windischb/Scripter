@@ -4,10 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
 using Reflectensions;
 using Scripter;
-using Scripter.ConsoleWriter;
-using Scripter.HttpModule;
-using Scripter.PowerShellCore;
-using Scripter.PowerShellCore.JsonConverter;
+using Scripter.Engine.PowerShellCore;
+using Scripter.Engine.PowerShellCore.JsonConverter;
+using Scripter.Module.ConsoleWriter;
+using Scripter.Module.Http;
 using Scripter.Shared;
 using Xunit;
 using Xunit.Abstractions;
@@ -32,7 +32,7 @@ namespace PowershellCoreTests
             sc.AddScripter(options => options
                 .AddPowerShellCoreEngine()
                 .AddScripterModule<ConsoleWriterModule>()
-                .AddScripterModule<Http>()
+                .AddScripterModule<HttpModule>()
             );
 
 
@@ -59,7 +59,7 @@ namespace PowershellCoreTests
             var psEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("PowerShellCore");
 
             var psScript = @"
-$res = (Get-service)[0..12]
+$res = ($PsVersionTable)[1]
 ";
 
             await psEngine.ExecuteAsync(psScript);

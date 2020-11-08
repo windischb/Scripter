@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <Authors>Bernhard Windisch</Authors>
+	  <Product />
+	  <Company>-</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="typescript.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="typescript.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Scripter.Engine.JavaScript\Scripter.Engine.JavaScript.csproj" />
+  </ItemGroup>
+
+ 
+
+</Project>
