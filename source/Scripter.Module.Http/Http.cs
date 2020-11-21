@@ -3,8 +3,8 @@ using Scripter.Shared;
 
 namespace Scripter.Module.Http
 {
-
-    public class HttpModule: IScripterModule
+    
+    public class HttpModule: IScripterModule<HttpModuleTypeDeclaration>
     {
 
         public HttpRequestBuilder Client(string url, Action<HttpOptionsBuilder> options)

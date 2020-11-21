@@ -10,7 +10,7 @@ namespace Scripter.Engine.TypeScript
             
             return scripterContext
                 .AddJavaScriptEngine()
-                .AddScripterEngine<TypeScriptEngine>();
+                .AddScripterEngine<TypeScriptEngine>("TypeScript");
         }
     }
 }

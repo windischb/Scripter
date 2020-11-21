@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
@@ -55,6 +57,10 @@ con.WriteLine('Hello')
         public async Task HttpResponseAsObject()
         {
             var tsEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("TypeScript");
+
+
+            var tds = ServiceProvider.GetServices<IScripterTypeDeclaration>();
+            
 
             var tsScript = @"
 import * as http from 'Http';

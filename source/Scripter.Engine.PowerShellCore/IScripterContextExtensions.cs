@@ -6,7 +6,7 @@ namespace Scripter.Engine.PowerShellCore
     {
         public static IScripterContext AddPowerShellCoreEngine(this IScripterContext services)
         {
-            return services.AddScripterEngine<PowerShellCoreEngine>();
+            return services.AddScripterEngine<PowerShellCoreEngine>("PowerShellCore");
         }
     }
 }
