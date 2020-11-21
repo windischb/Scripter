@@ -88,8 +88,9 @@ namespace Scripter
                 if (ist)
                 {
                     var defType = i.GenericTypeArguments[0];
-                    var tdInstance = (IScripterTypeDeclaration)Activator.CreateInstance(defType);
-                    _serviceCollection.AddSingleton<IScripterTypeDeclaration>(tdInstance);
+                    var tdInstance = (ScripterTypeDefinition)Activator.CreateInstance(defType);
+                    tdInstance.FileName = name;
+                    _serviceCollection.AddSingleton<ScripterTypeDefinition>(tdInstance);
                 }
             }
             

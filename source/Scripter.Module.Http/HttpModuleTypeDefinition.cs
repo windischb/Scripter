@@ -6,25 +6,19 @@ using Scripter.Shared;
 
 namespace Scripter.Module.Http
 {
-    public class HttpModuleTypeDeclaration: IScripterTypeDeclaration
+    public class HttpModuleTypeDefinition: ScripterTypeDefinition
     {
         public string Language => "TypeScript";
-        public string FileImport => "Http";
-
-        public string GetImports()
+       
+        public override string GetImports()
         {
             return GetFromResources("http.ts");
         }
-
-        public string GetTypeDefinitions()
-        {
-            return null;
-        }
-
+        
 
         public static string GetFromResources(string resourceName)
         {
-            var type = typeof(HttpModuleTypeDeclaration);
+            var type = typeof(HttpModuleTypeDefinition);
 
             using (Stream stream = type.Assembly.GetManifestResourceStream($"{type.Namespace}.{resourceName}"))
             {

@@ -5,7 +5,7 @@
        
     }
 
-    public interface IScripterModule<T>: IScripterModule where T: IScripterTypeDeclaration
+    public interface IScripterModule<T>: IScripterModule where T: ScripterTypeDefinition
     {
 
     }

@@ -7,37 +7,19 @@ using Scripter.Shared;
 namespace Scripter.Engine.TypeScript
 {
     [ScripterModule(OnlyTypeDefinition = true)]
-    public class BaseTypeDefinition: IScripterTypeDeclaration, IScripterModule<BaseTypeDefinition>
+    public class BaseTypeDefinition: ScripterTypeDefinition, IScripterModule<BaseTypeDefinition>
     {
-        public string Language => "TypeScript";
-        public string FileImport => "BaseTypes";
-        public string GetImports()
-        {
-            return null;
-        }
+        public override string Language => "TypeScript";
 
-        public string GetTypeDefinitions()
+        public override string GetTypeDefinitions()
         {
 
-            var es5 = GetFromResources("lib.es5.ts");
-            var es2015_core = GetFromResources("lib.es2015.core.d.ts");
+            var es5 = GetFromResources<BaseTypeDefinition>("lib.es5.ts");
+            var es2015_core = GetFromResources<BaseTypeDefinition>("lib.es2015.core.d.ts");
 
             return string.Join(Environment.NewLine, es5, es2015_core);
 
         }
 
-        public static string GetFromResources(string resourceName)
-        {
-            var type = typeof(BaseTypeDefinition);
-
-            using (Stream stream = type.Assembly.GetManifestResourceStream($"{type.Namespace}.{resourceName}"))
-            {
-                using (var reader = new StreamReader(stream))
-                {
-                    return reader.ReadToEnd();
-                }
-
-            }
-        }
     }
 }

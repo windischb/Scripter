@@ -4,7 +4,7 @@ using Scripter.Shared;
 namespace Scripter.Module.Http
 {
     
-    public class HttpModule: IScripterModule<HttpModuleTypeDeclaration>
+    public class HttpModule: IScripterModule<HttpModuleTypeDefinition>
     {
 
         public HttpRequestBuilder Client(string url, Action<HttpOptionsBuilder> options)

@@ -5,18 +5,9 @@ using Scripter.Shared;
 
 namespace Scripter.Module.Common
 {
-    public class CommonModuleTypeDefinitions : IScripterTypeDeclaration
+    public class CommonModuleTypeDefinitions : ScripterTypeDefinition
     {
-        public string Language => "TypeScript";
-        public string FileImport => "Common";
-        public string GetImports()
-        {
-            return null;
-        }
 
-        public string GetTypeDefinitions()
-        {
-            return null;
-        }
+       
     }
 }

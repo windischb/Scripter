@@ -61,10 +61,10 @@ con.WriteLine('Hello')
             var tsEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("TypeScript");
 
 
-            var declarations = ServiceProvider.GetServices<IScripterTypeDeclaration>();
+            var declarations = ServiceProvider.GetServices<ScripterTypeDefinition>();
 
-            var tds = declarations.ToDictionary(d => $"{d.FileImport}.d.ts", d => d.GetImports()).ToList();
-            var imports = declarations.ToDictionary(d => $"{d.FileImport}.d.ts", d => d.GetTypeDefinitions()).ToList().Where(kv => !String.IsNullOrWhiteSpace(kv.Value));
+            var imports = declarations.ToDictionary(d => $"{d.FileName}.d.ts", d => d.GetImports()).Where(kv => !String.IsNullOrWhiteSpace(kv.Value)).ToList();
+            var tds = declarations.ToDictionary(d => $"{d.FileName}.d.ts", d => d.GetTypeDefinitions()).Where(kv => !String.IsNullOrWhiteSpace(kv.Value)).ToList();
 
 
 
