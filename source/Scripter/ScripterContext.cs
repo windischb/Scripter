@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
 using Scripter.Shared;
 
@@ -11,44 +14,65 @@ namespace Scripter
     {
         private readonly IServiceCollection _serviceCollection;
 
+        private List<Type> _registered = new List<Type>();
         internal ScripterContext(IServiceCollection serviceCollection)
         {
             _serviceCollection = serviceCollection;
         }
 
-        //public IScripterContext AddScripterEngine<TEngine>() where TEngine : class, IScriptEngine
-        //{
-        //    var engineType = typeof(TEngine);
-        //    var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
-        //    return AddScripterEngine<TEngine>(language);
-        //}
-
-        public IScripterContext AddScripterEngine<TEngine>(string language) where TEngine: class, IScriptEngine
+        public IScripterContext AddScripterEngine<TEngine>() where TEngine : class, IScriptEngine
         {
-            _serviceCollection.AddTransient<TEngine>();
-            _serviceCollection.AddNamedTransient<IScriptEngine, TEngine>(language);
+            var engineType = typeof(TEngine);
+            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
+            return AddScripterEngine<TEngine>(language);
+        }
+
+        private IScripterContext AddScripterEngine<TEngine>(string language) where TEngine : class, IScriptEngine
+        {
+            if (_registered.Contains(typeof(TEngine)))
+                return this;
+
+            _serviceCollection.TryAddTransient<TEngine>();
+            _serviceCollection.TryAddNamedTransient<IScriptEngine, TEngine>(language);
+
+            _registered.Add(typeof(TEngine));
             return this;
         }
 
-        //public IScripterContext AddScripterEngine<TEngine>(Func<IServiceProvider, TEngine> factory) where TEngine : class, IScriptEngine
-        //{
-        //    var engineType = typeof(TEngine);
-        //    var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
-        //    return AddScripterEngine<TEngine>(language, factory);
-        //}
-
-        public IScripterContext AddScripterEngine<TEngine>(string language, Func<IServiceProvider, TEngine> factory) where TEngine : class, IScriptEngine
+        public IScripterContext AddScripterEngine<TEngine>(Func<IServiceProvider, TEngine> factory) where TEngine : class, IScriptEngine
         {
-            _serviceCollection.AddTransient<TEngine>(factory);
-            _serviceCollection.AddNamedTransient<IScriptEngine, TEngine>(language, factory);
+            var engineType = typeof(TEngine);
+            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
+            return AddScripterEngine<TEngine>(language, factory);
+        }
+
+        private IScripterContext AddScripterEngine<TEngine>(string language, Func<IServiceProvider, TEngine> factory) where TEngine : class, IScriptEngine
+        {
+            if (_registered.Contains(typeof(TEngine)))
+                return this;
+
+            _serviceCollection.TryAddTransient<TEngine>(factory);
+            _serviceCollection.TryAddNamedTransient<IScriptEngine, TEngine>(language, factory);
+
+            _registered.Add(typeof(TEngine));
             return this;
         }
 
         public IScripterContext AddScripterModule<TModule>() where TModule : class, IScripterModule
         {
             var moduleType = typeof(TModule);
+            if (_registered.Contains(moduleType))
+                return this;
+
             var moduleAttribute = moduleType.GetCustomAttribute<ScripterModuleAttribute>();
+            var onlyTypeDefinition = moduleAttribute?.OnlyTypeDefinition ?? false;
             var name = moduleAttribute?.Name ?? TrimEnd(moduleType.Name, "Module");
+
+            if (!onlyTypeDefinition)
+            {
+                _serviceCollection.AddNamedTransient<IScripterModule, TModule>(name);
+            }
+
 
             var interfaces = moduleType.GetInterfaces();
             
@@ -63,7 +87,7 @@ namespace Scripter
                 }
             }
             
-            _serviceCollection.AddNamedTransient<IScripterModule, TModule>(name);
+            _registered.Add(moduleType);
             return this;
         }
 

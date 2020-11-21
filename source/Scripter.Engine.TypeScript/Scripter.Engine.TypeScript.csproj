@@ -8,10 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="lib.es2015.core.d.ts" />
+    <None Remove="lib.es5.ts" />
     <None Remove="typescript.min.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="lib.es2015.core.d.ts" />
+    <EmbeddedResource Include="lib.es5.ts" />
     <EmbeddedResource Include="typescript.min.js" />
   </ItemGroup>
 

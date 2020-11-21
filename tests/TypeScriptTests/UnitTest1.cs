@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
 using Reflectensions;
 using Scripter;
+using Scripter.Engine.JavaScript;
 using Scripter.Engine.TypeScript;
 using Scripter.Module.ConsoleWriter;
 using Scripter.Module.Http;
@@ -26,6 +27,7 @@ namespace TypeScriptTests
            
             var sc = new ServiceCollection();
             sc.AddScripter(options => options
+                .AddJavaScriptEngine()
                 .AddTypeScriptEngine()
                 .AddScripterModule<ConsoleWriterModule>()
                 .AddScripterModule<HttpModule>()
@@ -59,8 +61,12 @@ con.WriteLine('Hello')
             var tsEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("TypeScript");
 
 
-            var tds = ServiceProvider.GetServices<IScripterTypeDeclaration>();
-            
+            var declarations = ServiceProvider.GetServices<IScripterTypeDeclaration>();
+
+            var tds = declarations.ToDictionary(d => $"{d.FileImport}.d.ts", d => d.GetImports()).ToList();
+            var imports = declarations.ToDictionary(d => $"{d.FileImport}.d.ts", d => d.GetTypeDefinitions()).ToList().Where(kv => !String.IsNullOrWhiteSpace(kv.Value));
+
+
 
             var tsScript = @"
 import * as http from 'Http';

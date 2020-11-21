@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Scripter
 {
@@ -11,7 +12,7 @@ namespace Scripter
         public static IServiceCollection AddScripter(this IServiceCollection services, Action<ScripterContext> options)
         {
             options(new ScripterContext(services));
-            services.AddTransient<EngineProvider>();
+            services.TryAddTransient<EngineProvider>();
             return services;
         }
     }
