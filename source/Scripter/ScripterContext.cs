@@ -22,45 +22,51 @@ namespace Scripter
 
         public IScripterContext AddScripterEngine<TEngine>() where TEngine : class, IScriptEngine
         {
-            var engineType = typeof(TEngine);
-            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
-            return AddScripterEngine<TEngine>(language);
+            return AddScripterEngine(typeof(TEngine));
         }
 
-        private IScripterContext AddScripterEngine<TEngine>(string language) where TEngine : class, IScriptEngine
+        public IScripterContext AddScripterEngine(Type engineType)
         {
-            if (_registered.Contains(typeof(TEngine)))
+            if (_registered.Contains(engineType))
                 return this;
 
-            _serviceCollection.TryAddTransient<TEngine>();
-            _serviceCollection.TryAddNamedTransient<IScriptEngine, TEngine>(language);
+            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
 
-            _registered.Add(typeof(TEngine));
+            _serviceCollection.TryAddTransient(engineType);
+            _serviceCollection.TryAddNamedTransient(typeof(IScriptEngine), language, engineType);
+
+            _registered.Add(engineType);
             return this;
         }
-
+        
         public IScripterContext AddScripterEngine<TEngine>(Func<IServiceProvider, TEngine> factory) where TEngine : class, IScriptEngine
         {
-            var engineType = typeof(TEngine);
-            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
-            return AddScripterEngine<TEngine>(language, factory);
+            return AddScripterEngine(typeof(TEngine), factory);
         }
 
-        private IScripterContext AddScripterEngine<TEngine>(string language, Func<IServiceProvider, TEngine> factory) where TEngine : class, IScriptEngine
+        public IScripterContext AddScripterEngine(Type engineType, Func<IServiceProvider, object> factory)
         {
-            if (_registered.Contains(typeof(TEngine)))
+            if (_registered.Contains(engineType))
                 return this;
 
-            _serviceCollection.TryAddTransient<TEngine>(factory);
-            _serviceCollection.TryAddNamedTransient<IScriptEngine, TEngine>(language, factory);
+            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
 
-            _registered.Add(typeof(TEngine));
+            _serviceCollection.TryAddTransient(engineType);
+            _serviceCollection.TryAddNamedTransient(typeof(IScriptEngine), language, factory);
+
+            _registered.Add(engineType);
             return this;
         }
+
+       
 
         public IScripterContext AddScripterModule<TModule>() where TModule : class, IScripterModule
         {
-            var moduleType = typeof(TModule);
+            return AddScripterModule(typeof(TModule));
+        }
+        public IScripterContext AddScripterModule(Type moduleType)
+        {
+            
             if (_registered.Contains(moduleType))
                 return this;
 
@@ -70,7 +76,7 @@ namespace Scripter
 
             if (!onlyTypeDefinition)
             {
-                _serviceCollection.AddNamedTransient<IScripterModule, TModule>(name);
+                _serviceCollection.AddNamedTransient(typeof(IScripterModule), name, moduleType);
             }
 
 
