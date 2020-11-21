@@ -16,7 +16,7 @@ namespace Scripter.Module.Http
             return GetFromResources("http.ts");
         }
 
-        public string GetTypeDsfinitions()
+        public string GetTypeDefinitions()
         {
             return null;
         }
