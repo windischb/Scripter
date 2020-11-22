@@ -71,11 +71,14 @@ class Build : NukeBuild
         .DependsOn(Compile)
         .Executes(() =>
         {
-            var projectsInSource = new List<string>
+            
+            var projectNames = new List<string>
             {
                 "Scripter",
                 "Scripter.Shared"
             };
+
+            var projects = Solution.AllProjects.Where(p => projectNames.Contains(p.Name));
 
             DotNetPack(s => s
                 .SetVersion(GitVersion.NuGetVersionV2)
@@ -85,7 +88,7 @@ class Build : NukeBuild
                 .SetInformationalVersion(GitVersion.InformationalVersion)
                 .EnableNoRestore()
                 .SetOutputDirectory(OutputDirectory)
-                .CombineWith(projectsInSource, (settings, project) => settings.SetProject(project))
+                .CombineWith(projects, (settings, project) => settings.SetProject(project))
             );
         });
 
