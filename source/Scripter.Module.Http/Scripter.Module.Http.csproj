@@ -8,10 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="http.d.ts" />
     <None Remove="http.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="http.d.ts" />
     <EmbeddedResource Include="http.ts" />
   </ItemGroup>
 

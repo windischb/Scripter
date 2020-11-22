@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Nuke.Common;
 using Nuke.Common.Execution;
@@ -70,7 +71,11 @@ class Build : NukeBuild
         .DependsOn(Compile)
         .Executes(() =>
         {
-            var projectsInSource = Solution.AllProjects.Where(p => p.Path.ToString().StartsWith(SourceDirectory));
+            var projectsInSource = new List<string>
+            {
+                "Scripter",
+                "Scripter.Shared"
+            };
 
             DotNetPack(s => s
                 .SetVersion(GitVersion.NuGetVersionV2)

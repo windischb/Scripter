@@ -14,7 +14,7 @@ namespace Scripter
     {
         private readonly IServiceCollection _serviceCollection;
 
-        private List<Type> _registered = new List<Type>();
+        private List<string> _registered = new List<string>();
         internal ScripterContext(IServiceCollection serviceCollection)
         {
             _serviceCollection = serviceCollection;
@@ -27,7 +27,7 @@ namespace Scripter
 
         public IScripterContext AddScripterEngine(Type engineType)
         {
-            if (_registered.Contains(engineType))
+            if (_registered.Contains(engineType.FullName))
                 return this;
 
             var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
@@ -35,7 +35,7 @@ namespace Scripter
             _serviceCollection.TryAddTransient(engineType);
             _serviceCollection.TryAddNamedTransient(typeof(IScriptEngine), language, engineType);
 
-            _registered.Add(engineType);
+            _registered.Add(engineType.FullName);
             return this;
         }
         
@@ -46,7 +46,7 @@ namespace Scripter
 
         public IScripterContext AddScripterEngine(Type engineType, Func<IServiceProvider, object> factory)
         {
-            if (_registered.Contains(engineType))
+            if (_registered.Contains(engineType.FullName))
                 return this;
 
             var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
@@ -54,7 +54,7 @@ namespace Scripter
             _serviceCollection.TryAddTransient(engineType);
             _serviceCollection.TryAddNamedTransient(typeof(IScriptEngine), language, factory);
 
-            _registered.Add(engineType);
+            _registered.Add(engineType.FullName);
             return this;
         }
 
@@ -67,7 +67,7 @@ namespace Scripter
         public IScripterContext AddScripterModule(Type moduleType)
         {
             
-            if (_registered.Contains(moduleType))
+            if (_registered.Contains(moduleType.FullName))
                 return this;
 
             var moduleAttribute = moduleType.GetCustomAttribute<ScripterModuleAttribute>();
@@ -94,7 +94,7 @@ namespace Scripter
                 }
             }
             
-            _registered.Add(moduleType);
+            _registered.Add(moduleType.FullName);
             return this;
         }
 

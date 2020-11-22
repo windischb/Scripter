@@ -8,26 +8,14 @@ namespace Scripter.Module.Http
 {
     public class HttpModuleTypeDefinition: ScripterTypeDefinition
     {
-        public string Language => "TypeScript";
-       
         public override string GetImports()
         {
-            return GetFromResources("http.ts");
+            return GetFromResources<HttpModuleTypeDefinition>("http.ts");
         }
-        
 
-        public static string GetFromResources(string resourceName)
+        public override string GetTypeDefinitions()
         {
-            var type = typeof(HttpModuleTypeDefinition);
-
-            using (Stream stream = type.Assembly.GetManifestResourceStream($"{type.Namespace}.{resourceName}"))
-            {
-                using (var reader = new StreamReader(stream))
-                {
-                    return reader.ReadToEnd();
-                }
-
-            }
+            return GetFromResources<HttpModuleTypeDefinition>("http.d.ts");
         }
     }
 }
