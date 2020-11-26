@@ -31,6 +31,21 @@ namespace Scripter.Engine.TypeScript
             _javascriptEngine.Stop();
         }
 
+        public object ConvertToDefaultObject(object value)
+        {
+            return _javascriptEngine.ConvertToDefaultObject(value);
+        }
+
+        public object JsonParse(string json)
+        {
+            return _javascriptEngine.JsonParse(json);
+        }
+
+        public string JsonStringify(object value)
+        {
+            return _javascriptEngine.JsonStringify(value);
+        }
+
 
         public void SetValue(string name, object value)
         {

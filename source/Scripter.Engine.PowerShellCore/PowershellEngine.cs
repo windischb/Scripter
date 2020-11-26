@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Reflectensions;
@@ -38,7 +39,23 @@ namespace Scripter.Engine.PowerShellCore
             
             _psEngine.Stop();
         }
-        
+
+        public object ConvertToDefaultObject(object value)
+        {
+            var json = JsonStringify(value);
+            return JsonParse(json);
+        }
+
+        public object JsonParse(string json)
+        {
+            return Json.Converter.ToObject<ExpandoObject>(json);
+        }
+
+        public string JsonStringify(object value)
+        {
+            return Json.Converter.ToJson(value);
+        }
+
         public void SetValue(string name, object value)
         {
             _psEngine.SetVariable(name, value);

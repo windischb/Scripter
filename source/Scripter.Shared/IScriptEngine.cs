@@ -21,5 +21,9 @@ namespace Scripter.Shared
         
         void Stop();
 
+        object ConvertToDefaultObject(object value);
+        object JsonParse(string json);
+        string JsonStringify(object value);
+
     }
 }

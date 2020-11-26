@@ -67,34 +67,35 @@ namespace Scripter
         public IScripterContext AddScripterModule(Type moduleType)
         {
             
-            if (_registered.Contains(moduleType.FullName))
-                return this;
+            //if (_registered.Contains(moduleType.FullName))
+            //    return this;
 
-            var moduleAttribute = moduleType.GetCustomAttribute<ScripterModuleAttribute>();
-            var onlyTypeDefinition = moduleAttribute?.OnlyTypeDefinition ?? false;
-            var name = moduleAttribute?.Name ?? TrimEnd(moduleType.Name, "Module");
+            //var moduleAttribute = moduleType.GetCustomAttribute<ScripterModuleAttribute>();
+            //var onlyTypeDefinition = moduleAttribute?.OnlyTypeDefinition ?? false;
+            //var name = moduleAttribute?.Name ?? TrimEnd(moduleType.Name, "Module");
 
-            if (!onlyTypeDefinition)
-            {
-                _serviceCollection.AddNamedTransient(typeof(IScripterModule), name, moduleType);
-            }
+            //if (!onlyTypeDefinition)
+            //{
+            //    _serviceCollection.AddNamedTransient(typeof(IScripterModule), name, moduleType);
+            //}
 
 
-            var interfaces = moduleType.GetInterfaces();
+            //var interfaces = moduleType.GetInterfaces();
             
-            foreach (var i in interfaces)
-            {
-                var ist = i.IsGenericType && typeof(IScripterModule).IsAssignableFrom(i);
-                if (ist)
-                {
-                    var defType = i.GenericTypeArguments[0];
-                    var tdInstance = (ScripterTypeDefinition)Activator.CreateInstance(defType);
-                    tdInstance.FileName = name;
-                    _serviceCollection.AddSingleton<ScripterTypeDefinition>(tdInstance);
-                }
-            }
+            //foreach (var i in interfaces)
+            //{
+            //    var ist = i.IsGenericType && typeof(IScripterModule).IsAssignableFrom(i);
+            //    if (ist)
+            //    {
+            //        var defType = i.GenericTypeArguments[0];
+            //        var tdInstance = (ScripterTypeDefinition)Activator.CreateInstance(defType);
+            //        tdInstance.FileName = name;
+            //        _serviceCollection.AddSingleton<ScripterTypeDefinition>(tdInstance);
+            //    }
+            //}
             
-            _registered.Add(moduleType.FullName);
+            //_registered.Add(moduleType.FullName);
+            ScripterModuleRegistry.RegisterModule(moduleType);
             return this;
         }
 

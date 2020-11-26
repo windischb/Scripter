@@ -6,7 +6,7 @@ namespace Scripter.Module.Http
     
     public class HttpModule: IScripterModule<HttpModuleTypeDefinition>
     {
-
+        
         public HttpRequestBuilder Client(string url, Action<HttpOptionsBuilder> options)
         {
             var builder = new HttpOptionsBuilder(url);
@@ -27,5 +27,6 @@ namespace Scripter.Module.Http
             return new HttpRequestBuilder(builder);
         }
 
+        
     }
 }

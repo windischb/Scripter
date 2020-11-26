@@ -8,7 +8,7 @@ using Scripter.Shared;
 
 namespace Scripter.Module.Template
 {
-    public class TemplateModule: IScripterModule
+    public class TemplateModule: IScripterModule<TypeDefinitions>
     {
 
 
@@ -21,10 +21,7 @@ namespace Scripter.Module.Template
         {
             return Parse(template, data.ToList());
         }
-        //public string Parse(string template, object[] data)
-        //{
-        //    return Parse(template, data.ToList());
-        //}
+
 
         private string Parse(string template, IEnumerable<object> data)
         {
@@ -48,5 +45,6 @@ namespace Scripter.Module.Template
             return scribanTemplate.Render(scriptObj);
         }
 
+        
     }
 }

@@ -5,7 +5,9 @@ using Jint;
 using Jint.Native;
 using Jint.Runtime;
 using Jint.Runtime.Debugger;
+using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 using Reflectensions;
 using Scripter.Shared;
 
@@ -15,6 +17,7 @@ namespace Scripter.Engine.JavaScript
     public class JavaScriptEngine: IScriptEngine
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly IScripterModuleRegistry _scripterModuleRegistry;
         public Func<string, string> CompileScript => null;
         public bool NeedsCompiledScript => false;
 
@@ -32,6 +35,7 @@ namespace Scripter.Engine.JavaScript
         public JavaScriptEngine(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+            _scripterModuleRegistry = serviceProvider.GetRequiredService<IScripterModuleRegistry>();
             _engine = new Jint.Engine(ConfigureOptions);
             Initialize();
         }
@@ -80,6 +84,33 @@ namespace Scripter.Engine.JavaScript
         public void Stop()
         {
             managedExit = true;
+        }
+
+        public object ConvertToDefaultObject(object value)
+        {
+            string json = JsonStringify(value);
+            return JsonParse(json);
+        }
+
+        public object JsonParse(string json)
+        {
+            var val = JsValue.FromObject(_engine, json);
+            return _engine.Json.Parse(val, new JsValue[] { val });
+        }
+
+        public string JsonStringify(object value)
+        {
+            string json = null;
+            if (value is JsValue jsv)
+            {
+                json = _engine.Json.Stringify(jsv, new JsValue[] { jsv }).AsString();
+            }
+            else
+            {
+                json = Json.Converter.ToJson(value);
+            }
+
+            return json;
         }
 
 
@@ -155,7 +186,7 @@ namespace Scripter.Engine.JavaScript
         
         private JsValue Require(string value)
         {
-            var inst = _serviceProvider.GetRequiredNamedService<IScripterModule>(value);
+            var inst = _scripterModuleRegistry.BuildModuleInstance(value, _serviceProvider, this);
             return JsValue.FromObject(_engine, inst);
         }
 

@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Jint;
+using Jint.Native;
 using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
 using Reflectensions;
 using Scripter;
 using Scripter.Engine.JavaScript;
 using Scripter.Engine.TypeScript;
+using Scripter.Module.Common;
 using Scripter.Module.ConsoleWriter;
 using Scripter.Module.Http;
 using Scripter.Shared;
@@ -31,6 +34,7 @@ namespace TypeScriptTests
                 .AddTypeScriptEngine()
                 .AddScripterModule<ConsoleWriterModule>()
                 .AddScripterModule<HttpModule>()
+                .AddScripterModule<CommonModule>()
             );
 
 
@@ -70,15 +74,20 @@ con.WriteLine('Hello')
 
             var tsScript = @"
 import * as http from 'Http';
-import * as variables from 'Variables';
+import * as com from 'Common';
+
 
 
 var cl = http.Client('http://10.0.0.21:8123/api/states/switch.buero_fan_buero_ventilator')
                     .SetBearerToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5M2VmNDdiNDc4ODg0MmI1YjFkYzM0OThjNjM0MWRiNyIsImlhdCI6MTYwMzkxNTA3OCwiZXhwIjoxOTE5Mjc1MDc4fQ.vTY4JseQEpmOkJw1UOkTWiyjALuewgtUR7HvaEqglKA'));
 
-                    var resp = cl.Get().Content.AsObject();
+                    var cont = cl.Get().Content;
+var resp = cont.AsText();
 
-                    
+var z = com.Json.Parse(resp)                    
+var zt = z.state;
+
+var json = com.Json.Stringify(cont.AsObject());
 
 ";
 
@@ -86,6 +95,10 @@ var cl = http.Client('http://10.0.0.21:8123/api/states/switch.buero_fan_buero_ve
 
             await tsEngine.ExecuteAsync(jsScript);
 
+            var zt = (JsValue)tsEngine.GetValue("zt");
+            var state = zt.AsString();
+
+            var json = tsEngine.GetValue<string>("json");
         }
 
 

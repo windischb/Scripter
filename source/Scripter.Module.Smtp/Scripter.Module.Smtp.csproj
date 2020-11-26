@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,6 +6,16 @@
 	  <Product />
 	  <Company>-</Company>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="imports.d.ts" />
+    <None Remove="typings.d.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="imports.d.ts" />
+    <EmbeddedResource Include="typings.d.ts" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.10.0" />

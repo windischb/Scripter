@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Scripter.Shared;
 
 namespace Scripter
 {
@@ -13,6 +14,7 @@ namespace Scripter
         {
             options(new ScripterContext(services));
             services.TryAddTransient<EngineProvider>();
+            services.TryAddTransient<IScripterModuleRegistry, ScripterModuleRegistry>();
             return services;
         }
     }

@@ -6,8 +6,9 @@ using Scripter.Shared;
 
 namespace Scripter.Module.Smtp
 {
-    public class SmtpModule: IScripterModule
+    public class SmtpModule: IScripterModule<TypeDefinitions>
     {
+
 
         public MSmtpClient Client()
         {
@@ -19,6 +20,7 @@ namespace Scripter.Module.Smtp
             return new MMailMessage();
         }
 
+       
     }
 
     public class MSmtpClient

@@ -13,6 +13,7 @@ namespace Scripter.Shared
         public virtual string GetImports() => null;
         public virtual string GetTypeDefinitions() => null;
 
+        
         protected static string GetFromResources<T>(string resourceName)
         {
             return GetFromResources(typeof(T), resourceName);
