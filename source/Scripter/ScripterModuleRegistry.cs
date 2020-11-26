@@ -84,6 +84,11 @@ namespace Scripter
 
         }
 
+        public List<ScripterTypeDefinition> GetTypeDefinitions()
+        {
+            return RegisteredModules.SelectMany(m => m.Value.TypeDefinitions).ToList();
+        }
+
         private object[] BuildConstructorParameters(ParameterInfo[] parameterInfos, IServiceProvider serviceProvider, Dictionary<Type, object> instances)
         {
             var parameterInstances = new List<object>();

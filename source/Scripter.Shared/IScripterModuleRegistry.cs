@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Scripter.Shared
 {
@@ -8,5 +9,7 @@ namespace Scripter.Shared
 
         IScripterModule BuildModuleInstance(string name, IServiceProvider serviceProvider,
             IScriptEngine currentScriptEngine);
+
+        List<ScripterTypeDefinition> GetTypeDefinitions();
     }
 }

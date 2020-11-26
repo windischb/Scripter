@@ -78,7 +78,12 @@ class Build : NukeBuild
                 "Scripter.Shared"
             };
 
-            var projects = Solution.AllProjects.Where(p => projectNames.Contains(p.Name));
+            var projects = Solution.AllProjects.Where(p => projectNames.Contains(p.Name)).ToList();
+
+            foreach (var project in Solution.AllProjects.Where(p => p.Name.StartsWith("Scripter.Engine.")))
+            {
+                projects.Add(project);
+            }
 
             DotNetPack(s => s
                 .SetVersion(GitVersion.NuGetVersionV2)
