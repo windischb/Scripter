@@ -18,6 +18,7 @@ declare namespace Scripter {
             interface JsonConverter {
 
                 Parse(json: string): any;
+                Stringify(value: any): string;
             }
         }
     }

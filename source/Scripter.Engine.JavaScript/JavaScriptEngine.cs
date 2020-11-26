@@ -14,7 +14,7 @@ using Scripter.Shared;
 namespace Scripter.Engine.JavaScript
 {
 
-    public class JavaScriptEngine: IScriptEngine
+    public class JavaScriptEngine : IScriptEngine
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IScripterModuleRegistry _scripterModuleRegistry;
@@ -24,14 +24,15 @@ namespace Scripter.Engine.JavaScript
         private Jint.Engine _engine;
         public const string StopExecutionIdentifier = "e06e73c8-67ec-411c-9761-c2f3b063f436";
 
-        public static ParserOptions EsprimaOptions = new ParserOptions {
+        public static ParserOptions EsprimaOptions = new ParserOptions
+        {
             Tolerant = true
         };
 
         private bool managedExit = false;
 
 
-       
+
         public JavaScriptEngine(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
@@ -40,15 +41,16 @@ namespace Scripter.Engine.JavaScript
             Initialize();
         }
 
-        
+
 
         private void Initialize()
         {
             _engine.Execute($"function exit() {{ setManagedExit(true); throw \"{StopExecutionIdentifier}\";}}", EsprimaOptions);
             _engine.Execute("var exports = {};", EsprimaOptions);
-            
 
-            void SetManagedExit(bool value) {
+
+            void SetManagedExit(bool value)
+            {
                 managedExit = value;
             }
 
@@ -74,7 +76,8 @@ namespace Scripter.Engine.JavaScript
             return StepMode.Over;
         }
 
-        private void ConfigureOptions(Options options) {
+        private void ConfigureOptions(Options options)
+        {
 
             options.CatchClrExceptions();
             options.DebugMode();
@@ -94,29 +97,40 @@ namespace Scripter.Engine.JavaScript
 
         public object JsonParse(string json)
         {
+            if (json == null)
+                return null;
+
             var val = JsValue.FromObject(_engine, json);
             return _engine.Json.Parse(val, new JsValue[] { val });
         }
 
         public string JsonStringify(object value)
         {
-            string json = null;
-            if (value is JsValue jsv)
+
+            if (value == null)
+                return null;
+
+            switch (value)
             {
-                json = _engine.Json.Stringify(jsv, new JsValue[] { jsv }).AsString();
-            }
-            else
-            {
-                json = Json.Converter.ToJson(value);
+                case JsValue jsValue:
+                    {
+                        return _engine.Json.Stringify(jsValue, new JsValue[] { jsValue }).AsString();
+
+                    }
+                case JToken jToken:
+                    {
+                        return jToken.ToString();
+                    }
             }
 
-            return json;
+            return Json.Converter.ToJson(value);
         }
 
 
         public void SetValue(string name, object value)
         {
-            switch (value) {
+            switch (value)
+            {
                 case string str:
                     _engine.SetValue(name, str);
                     break;
@@ -166,14 +180,21 @@ namespace Scripter.Engine.JavaScript
             try
             {
                 _engine.Execute(script, EsprimaOptions);
-            } catch (Exception exception) {
-                if (!managedExit) {
+            }
+            catch (Exception exception)
+            {
+                if (!managedExit)
+                {
                     var ex = exception.GetBaseException();
-                    if (ex is JavaScriptException jsex) {
-                        if (jsex.Message != StopExecutionIdentifier) {
+                    if (ex is JavaScriptException jsex)
+                    {
+                        if (jsex.Message != StopExecutionIdentifier)
+                        {
                             throw;
                         }
-                    } else {
+                    }
+                    else
+                    {
                         throw;
                     }
                 }
@@ -183,7 +204,7 @@ namespace Scripter.Engine.JavaScript
 
         }
 
-        
+
         private JsValue Require(string value)
         {
             var inst = _scripterModuleRegistry.BuildModuleInstance(value, _serviceProvider, this);
