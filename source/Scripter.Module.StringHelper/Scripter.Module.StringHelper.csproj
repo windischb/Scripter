@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<Authors>Bernhard Windisch</Authors>
+		<Product />
+		<Company>-</Company>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="imports.d.ts" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="imports.d.ts" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Scripter.Shared\Scripter.Shared.csproj" />
+	</ItemGroup>
+</Project>

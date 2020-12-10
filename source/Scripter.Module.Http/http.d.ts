@@ -9,8 +9,10 @@ declare namespace Scripter {
             interface HttpOptionsBuilder {
 
                 UseProxy(proxy: string): HttpOptionsBuilder;
-                UseProxy(proxy: string, credentials: Scripter.Module.HelperClasses.SimpleCredentials): HttpOptionsBuilder;
+                UseProxy(proxy: string, credentials: System.Net.NetworkCredential): HttpOptionsBuilder;
                 IgnoreProxy(value?: boolean): HttpOptionsBuilder;
+                AddClientCertificate(bytes: Uint8Array): HttpOptionsBuilder;
+                AddClientCertificate(bytes: Uint8Array, password: string): HttpOptionsBuilder;
             }
 
             interface HttpRequestBuilder {

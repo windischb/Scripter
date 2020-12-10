@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Scripter.Module.Http
 {
@@ -32,6 +33,14 @@ namespace Scripter.Module.Http
                 clientHandler.UseProxy = false;
             }
 
+            if (handlerOptions.ClientCertificates != null)
+            {
+                foreach (var handlerOptionsClientCertificate in handlerOptions.ClientCertificates)
+                {
+                    handlerOptions.ClientCertificates.Add(handlerOptionsClientCertificate);
+                }
+            }
+
             return clientHandler;
 
         }
@@ -54,6 +63,19 @@ namespace Scripter.Module.Http
             {
                 socketsHandler.UseProxy = false;
             }
+
+            if (handlerOptions.ClientCertificates != null)
+            {
+                foreach (var handlerOptionsClientCertificate in handlerOptions.ClientCertificates)
+                {
+                    if (socketsHandler.SslOptions.ClientCertificates == null)
+                    {
+                        socketsHandler.SslOptions.ClientCertificates = new X509CertificateCollection();
+                    }
+                    socketsHandler.SslOptions.ClientCertificates.Add(handlerOptionsClientCertificate);
+                }
+            }
+           
 
             return socketsHandler;
 

@@ -37,7 +37,7 @@ namespace Scripter.Engine.JavaScript
         {
             _serviceProvider = serviceProvider;
             _scripterModuleRegistry = serviceProvider.GetRequiredService<IScripterModuleRegistry>();
-            _engine = new Jint.Engine(ConfigureOptions);
+            _engine = new Jint.Engine(GetOptions());
             Initialize();
         }
 
@@ -76,12 +76,13 @@ namespace Scripter.Engine.JavaScript
             return StepMode.Over;
         }
 
-        private void ConfigureOptions(Options options)
+        private Options GetOptions()
         {
-
+            var options = _serviceProvider.GetService<Options>() ?? new Options();
             options.CatchClrExceptions();
             options.DebugMode();
             options.AllowClr(AppDomain.CurrentDomain.GetAssemblies());
+            return options;
         }
 
         public void Stop()

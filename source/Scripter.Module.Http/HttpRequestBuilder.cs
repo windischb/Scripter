@@ -124,7 +124,19 @@ namespace Scripter.Module.Http
         public async Task<HttpResponse> SendAsync(HttpMethod httpMethod, object content = null)
         {
             var httpRequestMessage = await _requestData.BuildHttpRequestMessage(_httpHandlerOptions, httpMethod, content);
-            return await SendRequestMessageAsync(httpRequestMessage);
+            Console.WriteLine($"SendAsync: {content}");
+            try
+            {
+                return await SendRequestMessageAsync(httpRequestMessage);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.WriteLine("----------------");
+                Console.WriteLine(e.StackTrace);
+                throw;
+            }
+            
         }
 
         public Task<HttpResponse> GetAsync()
@@ -180,6 +192,7 @@ namespace Scripter.Module.Http
 
         public HttpResponse Post(object content)
         {
+            Console.WriteLine($"Post: {content}");
             return PostAsync(content).WaitAndUnwrapException();
         }
 

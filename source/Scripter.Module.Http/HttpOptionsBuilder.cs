@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Scripter.Module.Http
 {
@@ -66,6 +68,21 @@ namespace Scripter.Module.Http
         public HttpOptionsBuilder IgnoreProxy(bool value)
         {
             _httpHandlerOptions.IgnoreProxy = value;
+            return this;
+        }
+
+        public HttpOptionsBuilder AddClientCertificate(byte[] bytes)
+        {
+            var cert = new X509Certificate2(bytes);
+
+            _httpHandlerOptions.ClientCertificates.Add(cert);
+            return this;
+        }
+
+        public HttpOptionsBuilder AddClientCertificate(byte[] bytes, string password)
+        {
+            var cert = new X509Certificate2(bytes, password);
+            _httpHandlerOptions.ClientCertificates.Add(cert);
             return this;
         }
 

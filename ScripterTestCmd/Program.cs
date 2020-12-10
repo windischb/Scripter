@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Reflectensions;
+using Reflectensions.ExtensionMethods;
 using Scripter;
 using Scripter.Engine.JavaScript;
 using Scripter.Engine.TypeScript;
@@ -32,6 +33,12 @@ namespace ScripterTestCmd
 
             sc.AddSingleton<IVariablesRepository, VariableRepository>();
 
+            sc.AddScoped<Options>(provider =>
+            {
+                var opts = new Options();
+                opts.AddExtensionMethods(typeof(StringExtensions));
+                return opts;
+            });
             ServiceProvider = sc.BuildServiceProvider();
 
             await Execute();
@@ -63,6 +70,7 @@ let d = {
 
 let z = JSON.stringify(d)
 
+let y = d.VKZ.ToNullableInt();
 ";
 
            
@@ -73,7 +81,7 @@ let z = JSON.stringify(d)
 
 
             var z = tsEngine.GetValue<string>("z");
-
+            var y = tsEngine.GetValue("y");
             Console.WriteLine(z);
 
         }
