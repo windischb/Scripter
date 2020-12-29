@@ -3,7 +3,7 @@ using Scripter.Shared;
 
 namespace Scripter.Module.ConsoleWriter
 {
-    [ScripterModule("Console")]
+
     public class ConsoleWriterModule: IScripterModule
     {
 
@@ -27,5 +27,7 @@ namespace Scripter.Module.ConsoleWriter
         {
             
         }
+
+        public string Tags { get; }
     }
 }

@@ -25,5 +25,7 @@ namespace Scripter.Shared
         object JsonParse(string json);
         string JsonStringify(object value);
 
+
+        void AddModuleParameterInstance(Type type, Func<object> factory);
     }
 }

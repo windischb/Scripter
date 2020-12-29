@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Scripter.Engine.PowerShellCore
        
 
         private PsRunspace _psEngine;
-
+        private Dictionary<Type, Func<object>> ProvidedTypeFactories = new Dictionary<Type, Func<object>>();
 
         public PowerShellCoreEngine(IServiceProvider serviceProvider)
         {
@@ -29,7 +30,7 @@ namespace Scripter.Engine.PowerShellCore
         
         private void Initialize()
         {
-            _psEngine.SetVariable("ModulesProvider", new ScripterModulesProvider(_serviceProvider));
+            _psEngine.SetVariable("ModulesProvider", new ScripterModulesProvider(_serviceProvider, this, ProvidedTypeFactories));
 
             
         }
@@ -54,6 +55,11 @@ namespace Scripter.Engine.PowerShellCore
         public string JsonStringify(object value)
         {
             return Json.Converter.ToJson(value);
+        }
+
+        public void AddModuleParameterInstance(Type type, Func<object> factory)
+        {
+            ProvidedTypeFactories[type] = factory;
         }
 
         public void SetValue(string name, object value)

@@ -65,6 +65,7 @@ namespace ScripterTestCmd
             return (bool)variable.Content;
         }
 
-       
+
+        public string Tags { get; }
     }
 }

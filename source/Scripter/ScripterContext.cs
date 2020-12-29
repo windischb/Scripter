@@ -30,7 +30,7 @@ namespace Scripter
             if (_registered.Contains(engineType.FullName))
                 return this;
 
-            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
+            var language = TrimEnd(engineType.Name, "Engine");
 
             _serviceCollection.TryAddTransient(engineType);
             _serviceCollection.TryAddNamedTransient(typeof(IScriptEngine), language, engineType);
@@ -49,7 +49,7 @@ namespace Scripter
             if (_registered.Contains(engineType.FullName))
                 return this;
 
-            var language = engineType.GetCustomAttribute<ScripterEngineAttribute>()?.Name ?? TrimEnd(engineType.Name, "Engine");
+            var language = TrimEnd(engineType.Name, "Engine");
 
             _serviceCollection.TryAddTransient(engineType);
             _serviceCollection.TryAddNamedTransient(typeof(IScriptEngine), language, factory);

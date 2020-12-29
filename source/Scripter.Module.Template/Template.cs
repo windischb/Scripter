@@ -8,7 +8,7 @@ using Scripter.Shared;
 
 namespace Scripter.Module.Template
 {
-    public class TemplateModule: IScripterModule<TypeDefinitions>
+    public class TemplateModule: IScripterModule
     {
 
 
@@ -45,6 +45,7 @@ namespace Scripter.Module.Template
             return scribanTemplate.Render(scriptObj);
         }
 
-        
+
+        public string Tags { get; }
     }
 }

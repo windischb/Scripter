@@ -50,10 +50,7 @@ namespace ScripterTestCmd
 
 
             var tsEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("TypeScript");
-            var declarations = ServiceProvider.GetServices<ScripterTypeDefinition>();
-
-
-
+           
             var variable = Json.Converter.ToJToken("{\r\n    \"VKZ\": \"BMI\",\r\n    \"BereichsKennung\": \"urn:publicid:gv.at:cdid+ZP\"\r\n}");
 
            

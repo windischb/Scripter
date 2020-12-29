@@ -46,6 +46,11 @@ namespace Scripter.Engine.TypeScript
             return _javascriptEngine.JsonStringify(value);
         }
 
+        public void AddModuleParameterInstance(Type type, Func<object> factory)
+        {
+            _javascriptEngine.AddModuleParameterInstance(type, factory);
+        }
+
 
         public void SetValue(string name, object value)
         {

@@ -4,7 +4,7 @@ using Scripter.Shared;
 namespace Scripter.Module.Http
 {
     
-    public class HttpModule: IScripterModule<HttpModuleTypeDefinition>
+    public class HttpModule: IScripterModule
     {
         
         public HttpRequestBuilder Client(string url, Action<HttpOptionsBuilder> options)
@@ -27,6 +27,7 @@ namespace Scripter.Module.Http
             return new HttpRequestBuilder(builder);
         }
 
-        
+
+        public string Tags { get; }
     }
 }

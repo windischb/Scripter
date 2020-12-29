@@ -11,9 +11,7 @@ namespace Scripter.Engine.PowerShellCore.Cmdlets
         protected override void ProcessRecord()
         {
 
-            
             var registeredModules = (ScripterModulesProvider)this.GetVariableValue("ModulesProvider");
-
             WriteObject(registeredModules.GetModule(Name));
         }
 

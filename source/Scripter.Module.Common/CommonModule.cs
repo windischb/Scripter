@@ -4,7 +4,7 @@ using Scripter.Shared;
 namespace Scripter.Module.Common
 {
 
-    public class CommonModule: IScripterModule<CommonModuleTypeDefinitions>
+    public class CommonModule: IScripterModule
     {
 
         public GuidHelper Guid { get; }
@@ -15,6 +15,8 @@ namespace Scripter.Module.Common
             Guid = new GuidHelper();
             Json = new JsonConverter(scriptEngine);
         }
+
+        public string Tags { get; }
     }
 
     public class GuidHelper

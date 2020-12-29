@@ -11,7 +11,7 @@ namespace Scripter
 {
     public class ScripterModuleRegistry : IScripterModuleRegistry
     {
-        private static ConcurrentDictionary<string, ScripterModuleDefinition> RegisteredModules { get; } = new ConcurrentDictionary<string, ScripterModuleDefinition>();
+        private static ConcurrentDictionary<string, Type> RegisteredModules { get; } = new ConcurrentDictionary<string, Type>();
         private static List<string> _registered = new List<string>();
 
 
@@ -21,83 +21,53 @@ namespace Scripter
             if (_registered.Contains(moduleType.FullName))
                 return;
 
-            var moduleAttribute = moduleType.GetCustomAttribute<ScripterModuleAttribute>();
-            var onlyTypeDefinition = moduleAttribute?.OnlyTypeDefinition ?? false;
-            var name = moduleAttribute?.Name ?? TrimEnd(moduleType.Name, "Module");
+            var name = TrimEnd(moduleType.Name, "Module");
 
-           
-            var interfaces = moduleType.GetInterfaces();
-
-            var modDefinition = new ScripterModuleDefinition(moduleType);
-
-            foreach (var i in interfaces)
-            {
-                var ist = i.IsGenericType && typeof(IScripterModule).IsAssignableFrom(i);
-                if (ist)
-                {
-                    var defType = i.GenericTypeArguments[0];
-                    var tdInstance = (ScripterTypeDefinition)Activator.CreateInstance(defType);
-                    tdInstance.FileName = name;
-                    modDefinition.AddScripterTypeDefinition(tdInstance);
-                }
-            }
-
-            RegisteredModules.TryAdd(name, modDefinition);
+            RegisteredModules.TryAdd(name, moduleType);
 
             _registered.Add(moduleType.FullName);
            
         }
         
-        public IScripterModuleDefinition GetModule(string name)
-        {
-            return RegisteredModules.TryGetValue(name, out var def) ? def : null;
-        }
-
         public IScripterModule BuildModuleInstance(string name, IServiceProvider serviceProvider,
-            IScriptEngine currentScriptEngine)
+            IScriptEngine currentScriptEngine, Dictionary<Type, Func<object>> instanceDictionary = null)
         {
 
-            var module = GetModule(name);
-            if (module == null)
+            if (!RegisteredModules.TryGetValue(name, out var module))
             {
                 throw new Exception($"A ScripterModule with name '{name}' is not registered!");
             }
-            var constructor = module.ModuleType.GetConstructors().FirstOrDefault();
+            var constructor = module.GetConstructors().FirstOrDefault();
             if(constructor == null)
             {
-                return (IScripterModule)ActivatorUtilities.CreateInstance(serviceProvider, module.ModuleType);
+                return (IScripterModule)ActivatorUtilities.CreateInstance(serviceProvider, module);
             }
 
             var parameterInfos = constructor.GetParameters();
             if (parameterInfos.Length == 0)
             {
-                return (IScripterModule)ActivatorUtilities.CreateInstance(serviceProvider, module.ModuleType);
+                return (IScripterModule)ActivatorUtilities.CreateInstance(serviceProvider, module);
             }
             else
             {
-                var instanceDictionary = new Dictionary<Type, object>
-                {
-                    [typeof(IScriptEngine)] = currentScriptEngine
-                };
-                return (IScripterModule)Activator.CreateInstance(module.ModuleType, BuildConstructorParameters(parameterInfos, serviceProvider, instanceDictionary));
+                instanceDictionary = instanceDictionary ?? new Dictionary<Type, Func<object>>();
+                instanceDictionary[typeof(IScriptEngine)] = () => currentScriptEngine;
+
+
+                return (IScripterModule)Activator.CreateInstance(module, BuildConstructorParameters(parameterInfos, serviceProvider, instanceDictionary));
             }
 
         }
 
-        public List<ScripterTypeDefinition> GetTypeDefinitions()
-        {
-            return RegisteredModules.SelectMany(m => m.Value.TypeDefinitions).ToList();
-        }
 
-        private object[] BuildConstructorParameters(ParameterInfo[] parameterInfos, IServiceProvider serviceProvider, Dictionary<Type, object> instances)
+        private object[] BuildConstructorParameters(ParameterInfo[] parameterInfos, IServiceProvider serviceProvider, Dictionary<Type, Func<object>> instances)
         {
             var parameterInstances = new List<object>();
             foreach (var parameterInfo in parameterInfos)
             {
                 if(instances.TryGetValue(parameterInfo.ParameterType, out var instance))
                 {
-                    parameterInstances.Add(instance);
-                    
+                    parameterInstances.Add(instance());
                 }
                 else
                 {
@@ -117,22 +87,6 @@ namespace Scripter
             }
 
             return value;
-        }
-    }
-
-    public class ScripterModuleDefinition : IScripterModuleDefinition
-    {
-        public Type ModuleType { get; }
-        public List<ScripterTypeDefinition> TypeDefinitions { get; } = new List<ScripterTypeDefinition>();
-
-        public ScripterModuleDefinition(Type moduleType)
-        {
-            ModuleType = moduleType;
-        }
-
-        internal void AddScripterTypeDefinition(ScripterTypeDefinition typeDefinition)
-        {
-            TypeDefinitions.Add(typeDefinition);
         }
     }
 }

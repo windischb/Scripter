@@ -8,16 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="http.d.ts" />
-    <None Remove="http.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="http.d.ts" />
-    <EmbeddedResource Include="http.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
 	  <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="5.0.0" />

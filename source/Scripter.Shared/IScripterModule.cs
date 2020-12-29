@@ -2,11 +2,7 @@
 {
     public interface IScripterModule
     {
-       
+        string Tags { get; }
     }
 
-    public interface IScripterModule<T>: IScripterModule where T: ScripterTypeDefinition
-    {
-
-    }
 }

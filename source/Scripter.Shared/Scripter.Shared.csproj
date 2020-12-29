@@ -12,8 +12,4 @@
     <PackageReference Include="NamedServices.Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Classes\" />
-  </ItemGroup>
-
 </Project>
