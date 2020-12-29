@@ -28,6 +28,5 @@ namespace Scripter.Module.ConsoleWriter
             
         }
 
-        public string Tags { get; }
     }
 }

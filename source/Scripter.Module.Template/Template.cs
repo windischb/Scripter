@@ -45,7 +45,5 @@ namespace Scripter.Module.Template
             return scribanTemplate.Render(scriptObj);
         }
 
-
-        public string Tags { get; }
     }
 }

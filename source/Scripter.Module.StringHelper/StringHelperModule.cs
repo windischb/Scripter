@@ -13,6 +13,5 @@ namespace Scripter.Module.StringHelper
             return val;
         }
 
-        public string Tags { get; }
     }
 }

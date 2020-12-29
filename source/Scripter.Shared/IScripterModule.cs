@@ -2,7 +2,7 @@
 {
     public interface IScripterModule
     {
-        string Tags { get; }
+        
     }
 
 }

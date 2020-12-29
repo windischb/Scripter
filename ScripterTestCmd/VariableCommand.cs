@@ -6,6 +6,7 @@ using Scripter.Shared;
 
 namespace ScripterTestCmd
 {
+    [ScripterModule("variables")]
     public class GlobalVariablesModule: IScripterModule
     {
         private readonly IVariablesRepository _variablesStore;

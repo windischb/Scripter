@@ -11,19 +11,22 @@ namespace Scripter.Engine.PowerShellCore
         private readonly IServiceProvider _serviceProvider;
         private readonly IScriptEngine _scriptEngine;
         private readonly Dictionary<Type, Func<object>> _providedTypeFactories;
+        private readonly List<string> _useTaggedModules;
 
 
-        public ScripterModulesProvider(IServiceProvider serviceProvider, IScriptEngine scriptEngine, Dictionary<Type, Func<object>> providedTypeFactories)
+        public ScripterModulesProvider(IServiceProvider serviceProvider, IScriptEngine scriptEngine,
+            Dictionary<Type, Func<object>> providedTypeFactories, List<string> useTaggedModules)
         {
             _serviceProvider = serviceProvider;
             _scriptEngine = scriptEngine;
             _providedTypeFactories = providedTypeFactories;
+            _useTaggedModules = useTaggedModules;
         }
 
         public object GetModule(string moduleName)
         {
             var scripterModuleRegistry = _serviceProvider.GetRequiredService<IScripterModuleRegistry>();
-            var inst = scripterModuleRegistry.BuildModuleInstance(moduleName, _serviceProvider, _scriptEngine, _providedTypeFactories);
+            var inst = scripterModuleRegistry.BuildModuleInstance(moduleName, _serviceProvider, _scriptEngine, _providedTypeFactories, _useTaggedModules);
 
             return inst;
         }

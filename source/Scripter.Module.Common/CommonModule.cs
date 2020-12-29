@@ -3,7 +3,7 @@ using Scripter.Shared;
 
 namespace Scripter.Module.Common
 {
-
+    
     public class CommonModule: IScripterModule
     {
 
@@ -16,7 +16,6 @@ namespace Scripter.Module.Common
             Json = new JsonConverter(scriptEngine);
         }
 
-        public string Tags { get; }
     }
 
     public class GuidHelper

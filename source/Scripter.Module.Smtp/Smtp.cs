@@ -20,8 +20,6 @@ namespace Scripter.Module.Smtp
             return new MMailMessage();
         }
 
-
-        public string Tags { get; }
     }
 
     public class MSmtpClient

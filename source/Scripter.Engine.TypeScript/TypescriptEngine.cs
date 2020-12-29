@@ -51,6 +51,11 @@ namespace Scripter.Engine.TypeScript
             _javascriptEngine.AddModuleParameterInstance(type, factory);
         }
 
+        public void AddTaggedModules(params string[] tags)
+        {
+            _javascriptEngine.AddTaggedModules(tags);
+        }
+
 
         public void SetValue(string name, object value)
         {

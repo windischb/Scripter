@@ -27,7 +27,5 @@ namespace Scripter.Module.Http
             return new HttpRequestBuilder(builder);
         }
 
-
-        public string Tags { get; }
     }
 }

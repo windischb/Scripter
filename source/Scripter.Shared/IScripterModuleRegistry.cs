@@ -6,6 +6,7 @@ namespace Scripter.Shared
     public interface IScripterModuleRegistry
     {
         IScripterModule BuildModuleInstance(string name, IServiceProvider serviceProvider,
-            IScriptEngine currentScriptEngine, Dictionary<Type, Func<object>> instanceDictionary = null);
+            IScriptEngine currentScriptEngine, Dictionary<Type, Func<object>> instanceDictionary = null,
+            List<string> useTaggedModules = null);
     }
 }

@@ -25,7 +25,8 @@ namespace Scripter.Engine.JavaScript
         private Jint.Engine _engine;
         public const string StopExecutionIdentifier = "e06e73c8-67ec-411c-9761-c2f3b063f436";
 
-        private Dictionary<Type, Func<object>> ProvidedTypeFactories = new Dictionary<Type, Func<object>>(); 
+        private Dictionary<Type, Func<object>> ProvidedTypeFactories = new Dictionary<Type, Func<object>>();
+        private List<string> UseTaggedModules = new List<string>();
 
         public static ParserOptions EsprimaOptions = new ParserOptions
         {
@@ -135,6 +136,11 @@ namespace Scripter.Engine.JavaScript
             ProvidedTypeFactories[type] = factory;
         }
 
+        public void AddTaggedModules(params string[] tags)
+        {
+            UseTaggedModules.AddRange(tags);
+        }
+
 
         public void SetValue(string name, object value)
         {
@@ -216,7 +222,7 @@ namespace Scripter.Engine.JavaScript
 
         private JsValue Require(string value)
         {
-            var inst = _scripterModuleRegistry.BuildModuleInstance(value, _serviceProvider, this, ProvidedTypeFactories);
+            var inst = _scripterModuleRegistry.BuildModuleInstance(value, _serviceProvider, this, ProvidedTypeFactories, UseTaggedModules);
             return JsValue.FromObject(_engine, inst);
         }
 

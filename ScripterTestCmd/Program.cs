@@ -53,7 +53,7 @@ namespace ScripterTestCmd
            
             var variable = Json.Converter.ToJToken("{\r\n    \"VKZ\": \"BMI\",\r\n    \"BereichsKennung\": \"urn:publicid:gv.at:cdid+ZP\"\r\n}");
 
-           
+           tsEngine.AddTaggedModules("VARiableS");
 
             var tsScript = @"
 
