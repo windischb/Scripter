@@ -80,7 +80,7 @@ class Build : NukeBuild
 
             var projects = Solution.AllProjects.Where(p => projectNames.Contains(p.Name)).ToList();
 
-            foreach (var project in Solution.AllProjects.Where(p => p.Name.StartsWith("Scripter.Engine.")))
+            foreach (var project in Solution.AllProjects.Where(p => p.Name.StartsWith("Scripter.")))
             {
                 projects.Add(project);
             }
