@@ -25,8 +25,10 @@ namespace Scripter.Engine.JavaScript
         private Jint.Engine _engine;
         public const string StopExecutionIdentifier = "e06e73c8-67ec-411c-9761-c2f3b063f436";
 
-        private Dictionary<Type, Func<object>> ProvidedTypeFactories = new Dictionary<Type, Func<object>>();
-        private List<string> UseTaggedModules = new List<string>();
+        private readonly Dictionary<Type, Func<object>> _providedTypeFactories = new Dictionary<Type, Func<object>>();
+        private readonly List<string> _useTaggedModules = new List<string>();
+        private Dictionary<Type, object> _instantiatedModules = new Dictionary<Type, object>();
+
 
         public static ParserOptions EsprimaOptions = new ParserOptions
         {
@@ -133,12 +135,23 @@ namespace Scripter.Engine.JavaScript
 
         public void AddModuleParameterInstance(Type type, Func<object> factory)
         {
-            ProvidedTypeFactories[type] = factory;
+            _providedTypeFactories[type] = factory;
         }
 
         public void AddTaggedModules(params string[] tags)
         {
-            UseTaggedModules.AddRange(tags);
+            _useTaggedModules.AddRange(tags);
+        }
+
+        public T GetModuleState<T>()
+        {
+            var type = typeof(T);
+            if (_instantiatedModules.ContainsKey(type))
+            {
+                return (T)_instantiatedModules[type];
+            }
+
+            return default;
         }
 
 
@@ -222,7 +235,9 @@ namespace Scripter.Engine.JavaScript
 
         private JsValue Require(string value)
         {
-            var inst = _scripterModuleRegistry.BuildModuleInstance(value, _serviceProvider, this, ProvidedTypeFactories, UseTaggedModules);
+
+            var inst = _scripterModuleRegistry.BuildModuleInstance(value, _serviceProvider, this, _providedTypeFactories, _useTaggedModules);
+            _instantiatedModules[inst.GetType()] = inst;
             return JsValue.FromObject(_engine, inst);
         }
 

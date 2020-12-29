@@ -20,6 +20,8 @@ namespace Scripter.Engine.PowerShellCore
         private PsRunspace _psEngine;
         private Dictionary<Type, Func<object>> ProvidedTypeFactories = new Dictionary<Type, Func<object>>();
         private List<string> UseTaggedModules = new List<string>();
+        
+        private ScripterModulesProvider _scripterModulesProvider;
 
         public PowerShellCoreEngine(IServiceProvider serviceProvider)
         {
@@ -31,7 +33,10 @@ namespace Scripter.Engine.PowerShellCore
         
         private void Initialize()
         {
-            _psEngine.SetVariable("ModulesProvider", new ScripterModulesProvider(_serviceProvider, this, ProvidedTypeFactories, UseTaggedModules));
+            _scripterModulesProvider =
+                new ScripterModulesProvider(_serviceProvider, this, ProvidedTypeFactories, UseTaggedModules);
+
+            _psEngine.SetVariable("ModulesProvider", _scripterModulesProvider);
 
             
         }
@@ -66,6 +71,17 @@ namespace Scripter.Engine.PowerShellCore
         public void AddTaggedModules(params string[] tags)
         {
             UseTaggedModules.AddRange(tags);
+        }
+
+        public T GetModuleState<T>()
+        {
+            var type = typeof(T);
+            if (_scripterModulesProvider._instantiatedModules.ContainsKey(type))
+            {
+                return (T)_scripterModulesProvider._instantiatedModules[type];
+            }
+
+            return default;
         }
 
         public void SetValue(string name, object value)

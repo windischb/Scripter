@@ -56,6 +56,11 @@ namespace Scripter.Engine.TypeScript
             _javascriptEngine.AddTaggedModules(tags);
         }
 
+        public T GetModuleState<T>()
+        {
+            return _javascriptEngine.GetModuleState<T>();
+        }
+
 
         public void SetValue(string name, object value)
         {

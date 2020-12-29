@@ -57,13 +57,15 @@ namespace ScripterTestCmd
 
             var tsScript = @"
 
-import { GetString, GetAny } from 'GlobalVariables';
-let data = GetAny(""BPK/DefaultRequestValues"");
+import * as variables from 'GlobalVariables';
+let data = variables.GetAny(""BPK/DefaultRequestValues"");
 
 let d = {
     a: 123,
     ...data
 }
+
+variables.Test = ""Das ist ein TEst""
 
 let z = JSON.stringify(d)
 
@@ -76,6 +78,7 @@ let y = d.VKZ.ToNullableInt();
 
             await tsEngine.ExecuteAsync(jsScript);
 
+            var m = tsEngine.GetModuleState<GlobalVariablesModule>();
 
             var z = tsEngine.GetValue<string>("z");
             var y = tsEngine.GetValue("y");

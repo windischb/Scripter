@@ -13,6 +13,8 @@ namespace ScripterTestCmd
         private readonly IScriptEngine _scriptEngine;
 
 
+        public string Test { get; set; }
+
         public GlobalVariablesModule(IVariablesRepository variablesStore, IScriptEngine scriptEngine)
         {
             _variablesStore = variablesStore;

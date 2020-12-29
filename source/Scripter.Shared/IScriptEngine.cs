@@ -29,5 +29,8 @@ namespace Scripter.Shared
         void AddModuleParameterInstance(Type type, Func<object> factory);
 
         void AddTaggedModules(params string[] tags);
+
+        T GetModuleState<T>();
+
     }
 }

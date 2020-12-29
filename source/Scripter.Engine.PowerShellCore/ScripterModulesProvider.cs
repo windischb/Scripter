@@ -12,7 +12,7 @@ namespace Scripter.Engine.PowerShellCore
         private readonly IScriptEngine _scriptEngine;
         private readonly Dictionary<Type, Func<object>> _providedTypeFactories;
         private readonly List<string> _useTaggedModules;
-
+        internal Dictionary<Type, object> _instantiatedModules = new Dictionary<Type, object>();
 
         public ScripterModulesProvider(IServiceProvider serviceProvider, IScriptEngine scriptEngine,
             Dictionary<Type, Func<object>> providedTypeFactories, List<string> useTaggedModules)
@@ -27,7 +27,7 @@ namespace Scripter.Engine.PowerShellCore
         {
             var scripterModuleRegistry = _serviceProvider.GetRequiredService<IScripterModuleRegistry>();
             var inst = scripterModuleRegistry.BuildModuleInstance(moduleName, _serviceProvider, _scriptEngine, _providedTypeFactories, _useTaggedModules);
-
+            _instantiatedModules[inst.GetType()] = inst;
             return inst;
         }
     }
