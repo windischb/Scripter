@@ -79,6 +79,11 @@ namespace Scripter
 
         }
 
+        public IEnumerable<IScripterModuleDefinition> GetRegisteredModuleDefinitions()
+        {
+            return RegisteredModules.Values;
+        }
+
 
         private object[] BuildConstructorParameters(ParameterInfo[] parameterInfos, IServiceProvider serviceProvider, Dictionary<Type, Func<object>> instances)
         {

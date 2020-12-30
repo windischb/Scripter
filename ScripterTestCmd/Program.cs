@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Jint;
 using Jint.Native;
@@ -50,7 +51,10 @@ namespace ScripterTestCmd
 
 
             var tsEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("TypeScript");
-           
+
+            var reg =ServiceProvider.GetService<IScripterModuleRegistry>();
+            var regModules = reg.GetRegisteredModuleDefinitions();
+
             var variable = Json.Converter.ToJToken("{\r\n    \"VKZ\": \"BMI\",\r\n    \"BereichsKennung\": \"urn:publicid:gv.at:cdid+ZP\"\r\n}");
 
            tsEngine.AddTaggedModules("VARiableS");
