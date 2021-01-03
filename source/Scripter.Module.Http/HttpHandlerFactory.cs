@@ -15,36 +15,6 @@ namespace Scripter.Module.Http
             return HttpHandlers.GetOrAdd(roHttpHandlerOptions, _ => ValueFactory(handlerOptions));
         }
 
-#if NETSTANDARD2_0
-        private static HttpMessageHandler ValueFactory(HttpHandlerOptions handlerOptions)
-        {
-            var clientHandler = new HttpClientHandler()
-            {
-                MaxConnectionsPerServer = 2
-            };
-
-            if (handlerOptions.Proxy != null)
-            {
-                clientHandler.Proxy = handlerOptions.Proxy;
-            }
-
-            if (handlerOptions.IgnoreProxy)
-            {
-                clientHandler.UseProxy = false;
-            }
-
-            if (handlerOptions.ClientCertificates != null)
-            {
-                foreach (var handlerOptionsClientCertificate in handlerOptions.ClientCertificates)
-                {
-                    handlerOptions.ClientCertificates.Add(handlerOptionsClientCertificate);
-                }
-            }
-
-            return clientHandler;
-
-        }
-#else
         private static HttpMessageHandler ValueFactory(HttpHandlerOptions handlerOptions)
         {
             var socketsHandler = new SocketsHttpHandler
@@ -80,7 +50,6 @@ namespace Scripter.Module.Http
             return socketsHandler;
 
         }
-#endif
 
     }
 }

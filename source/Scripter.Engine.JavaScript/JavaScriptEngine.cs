@@ -84,10 +84,15 @@ namespace Scripter.Engine.JavaScript
 
         private Options GetOptions()
         {
-            var options = _serviceProvider.GetService<Options>() ?? new Options();
-            options.CatchClrExceptions();
-            options.DebugMode();
-            options.AllowClr(AppDomain.CurrentDomain.GetAssemblies());
+            var options = _serviceProvider.GetService<Options>();
+            if (options == null)
+            {
+                options = new Options();
+                options.CatchClrExceptions();
+                options.DebugMode();
+                options.AllowClr(AppDomain.CurrentDomain.GetAssemblies());
+            }
+            
             return options;
         }
 
