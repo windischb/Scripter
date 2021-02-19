@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Jint;
@@ -74,6 +75,11 @@ variables.Test = ""Das ist ein TEst""
 let z = JSON.stringify(d)
 
 let y = d.VKZ.ToNullableInt();
+
+let obj = CreateObject(""System.Collections.Generic.Dictionary$2"", ['string','boolean'])
+
+obj['Age'] = 39;
+
 ";
 
            
@@ -86,6 +92,10 @@ let y = d.VKZ.ToNullableInt();
 
             var z = tsEngine.GetValue<string>("z");
             var y = tsEngine.GetValue("y");
+
+
+            var obj = tsEngine.GetValue<Dictionary<string, object>>("obj");
+
             Console.WriteLine(z);
 
         }

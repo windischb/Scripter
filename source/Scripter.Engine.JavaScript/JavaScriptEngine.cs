@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Esprima;
 using Jint;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Reflectensions;
+using Reflectensions.ExtensionMethods;
 using Scripter.Shared;
 
 namespace Scripter.Engine.JavaScript
@@ -59,9 +62,9 @@ namespace Scripter.Engine.JavaScript
             {
                 managedExit = value;
             }
-
-
+            
             _engine.SetValue("setManagedExit", new Action<bool>(SetManagedExit));
+            _engine.SetValue("CreateObject", new Func<string, object[], object>(TypeHelper.CreateObject));
             managedExit = false;
             _engine.SetValue("managedExit", managedExit);
             //_engine.Global.FastAddProperty("middler", new NamespaceReference(_engine, "middler"), false, false, false );
