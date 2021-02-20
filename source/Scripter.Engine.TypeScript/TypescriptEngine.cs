@@ -101,7 +101,7 @@ namespace Scripter.Engine.TypeScript
                 return null;
 
 
-            Regex regex = new Regex(@"new\s(?<typeName>[a-zA-Z0-9_\.\s<>\[\]$]+)\((?<parameters>[a-zA-Z0-9_\.,\s<>\[\]$'""]+)?\)");
+            Regex regex = new Regex(@"new\s(?<typeName>[a-zA-Z0-9_\.\s<>\[\]$,]+)\((?<parameters>[a-zA-Z0-9_\.,\s<>\[\]$'""]+)?\)");
 
             //var match = regex.Match(sourceCode);
 
