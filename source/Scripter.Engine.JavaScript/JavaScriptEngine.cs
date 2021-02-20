@@ -64,7 +64,7 @@ namespace Scripter.Engine.JavaScript
             }
             
             _engine.SetValue("setManagedExit", new Action<bool>(SetManagedExit));
-            _engine.SetValue("CreateObject", new Func<string, object[], object>(TypeHelper.CreateObject));
+            _engine.SetValue("NewObject", new Func<string, object[], object>(TypeHelper.CreateObject));
             managedExit = false;
             _engine.SetValue("managedExit", managedExit);
             //_engine.Global.FastAddProperty("middler", new NamespaceReference(_engine, "middler"), false, false, false );

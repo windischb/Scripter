@@ -76,9 +76,8 @@ let z = JSON.stringify(d)
 
 let y = d.VKZ.ToNullableInt();
 
-let obj = CreateObject(""System.Collections.Generic.Dictionary$2"", ['string','boolean'])
+let obj = NewObject('ScripterTestCmd.CreateObjectTestClass<number>', ['Bernhard', 39])
 
-obj['Age'] = 39;
 
 ";
 
@@ -93,8 +92,8 @@ obj['Age'] = 39;
             var z = tsEngine.GetValue<string>("z");
             var y = tsEngine.GetValue("y");
 
-
-            var obj = tsEngine.GetValue<Dictionary<string, object>>("obj");
+            
+            var obj = tsEngine.GetValue("obj");
 
             Console.WriteLine(z);
 

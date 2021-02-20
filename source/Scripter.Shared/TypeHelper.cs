@@ -9,47 +9,29 @@ namespace Scripter.Shared
 {
     public static class TypeHelper
     {
-        public static object CreateObject(string type, object[] parameters)
+
+        private static Dictionary<string, string> TypeMapping = new Dictionary<string, string>
         {
-            type = type.Replace("$", "`");
+            ["number"] = "double",
+            ["any"] = "object"
+        };
 
-            object[] constructorParameters;
+        public static object CreateObject(string typeName, object[] parameters)
+        {
+            typeName = typeName.Replace("$", "`");
 
-            if (!type.Contains("`"))
+            var type = Reflectensions.Helper.TypeHelper.FindType(typeName, TypeMapping);
+
+            if (parameters?.Any() == true)
             {
-                return CreateObject(type, null, parameters);
+                return Activator.CreateInstance(type, parameters);
             }
             else
             {
-                var splitted = type.Split("`");
-                var genericTypeParametersCount = splitted[1].ToInt();
-
-                var genericTypeParameters = parameters.Take(genericTypeParametersCount).Select(o => o.ToString()).ToArray();
-                constructorParameters = parameters.Skip(genericTypeParametersCount).ToArray();
-
-                return CreateObject(splitted[0], genericTypeParameters, constructorParameters);
-            }
-        }
-
-        public static object CreateObject(string type, string[] genericTypeParameters, object[] constructorArguments)
-        {
-            
-            if (genericTypeParameters?.Any() == true){
-                genericTypeParameters = genericTypeParameters.Select(o => Reflectensions.Helper.TypeHelper.FindType(o.ToString()).FullName).ToArray();
-                type = $"{type}`{genericTypeParameters.Length}[{String.Join(",", genericTypeParameters)}]";
-            }
-
-            var t = Reflectensions.Helper.TypeHelper.FindType(type);
-
-            if (constructorArguments?.Any() == true)
-            {
-                return Activator.CreateInstance(t, constructorArguments);
-            }
-            else
-            {
-                return Activator.CreateInstance(t);
+                return Activator.CreateInstance(type);
             }
 
         }
+
     }
 }
