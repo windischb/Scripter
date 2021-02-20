@@ -76,8 +76,9 @@ let z = JSON.stringify(d)
 
 let y = d.VKZ.ToNullableInt();
 
-let obj = NewObject('ScripterTestCmd.CreateObjectTestClass<number>', ['Bernhard', 39])
-
+let obj = new ScripterTestCmd.CreateObjectTestClass<number>('Bernhard', 39);
+let obj2 = new ScripterTestCmd.CreateObjectTestClass<number>('Vera', 37);
+let obj3 = new Date();
 
 ";
 

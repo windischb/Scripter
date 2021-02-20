@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Esprima;
 using Jint;
@@ -8,24 +10,25 @@ using Scripter.Shared;
 
 namespace Scripter.Engine.TypeScript
 {
-    public class TypeScriptEngine: IScriptEngine
+    public class TypeScriptEngine : IScriptEngine
     {
         public Func<string, string> CompileScript => CompileScriptInternal;
         public bool NeedsCompiledScript { get; } = true;
 
 
         private JavaScriptEngine _javascriptEngine;
-        
-        public static ParserOptions EsprimaOptions = new ParserOptions {
+
+        public static ParserOptions EsprimaOptions = new ParserOptions
+        {
             Tolerant = true
         };
 
-       
+
         public TypeScriptEngine(JavaScriptEngine javaScriptEngine)
         {
             _javascriptEngine = javaScriptEngine;
         }
-        
+
         public void Stop()
         {
             _javascriptEngine.Stop();
@@ -97,21 +100,54 @@ namespace Scripter.Engine.TypeScript
             if (String.IsNullOrWhiteSpace(sourceCode))
                 return null;
 
-            if (TypeScriptScript == null) {
+
+            Regex regex = new Regex(@"new\s(?<typeName>[a-zA-Z0-9_\.\s<>\[\]$]+)\((?<parameters>[a-zA-Z0-9_\.,\s<>\[\]$'""]+)?\)");
+
+            //var match = regex.Match(sourceCode);
+
+            var matches = regex.Matches(sourceCode);
+
+            if (matches.Any())
+            {
+                foreach (Match match in matches)
+                {
+                    var typeName = match.Groups["typeName"].Value;
+
+                    var type = TypeHelper.FindType(typeName);
+                    if (type != null)
+                    {
+                        var parameters = match.Groups["parameters"].Value;
+
+                        var constuctorParameters = "";
+                        if (!String.IsNullOrWhiteSpace(parameters))
+                        {
+                            constuctorParameters = $", [{parameters}]";
+                        }
+
+                        var replaceText = $"NewObject('{typeName}'{constuctorParameters})";
+
+                        sourceCode = sourceCode.Replace(match.Value, replaceText);
+
+                    }
+                }
+            }
+            
+            if (TypeScriptScript == null)
+            {
                 var tsLib = GetFromResources("typescript.min.js");
                 var parser = new JavaScriptParser(tsLib, EsprimaOptions);
 
                 TypeScriptScript = parser.ParseScript();
             }
 
-           
-            
+
+
             var _engine = new Jint.Engine();
-            
+
             _engine.Execute(TypeScriptScript);
 
 
-           
+
             _engine.SetValue("src", sourceCode);
 
 

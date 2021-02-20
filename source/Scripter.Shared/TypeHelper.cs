@@ -33,5 +33,9 @@ namespace Scripter.Shared
 
         }
 
+        public static Type FindType(string typeName)
+        {
+            return Reflectensions.Helper.TypeHelper.FindType(typeName, TypeMapping);
+        }
     }
 }
