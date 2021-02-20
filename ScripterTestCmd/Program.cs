@@ -77,7 +77,7 @@ let z = JSON.stringify(d)
 let y = d.VKZ.ToNullableInt();
 
 
-let dict = new System.Collections.Generic.Dictionary<string, number>();
+let dict = new System.Collections.Generic.Dictionary$2<string, number>();
 
 ";
 
@@ -93,7 +93,7 @@ let dict = new System.Collections.Generic.Dictionary<string, number>();
             var y = tsEngine.GetValue("y");
 
             
-            var obj = tsEngine.GetValue("obj");
+            var obj = tsEngine.GetValue("dict");
 
             Console.WriteLine(z);
 
