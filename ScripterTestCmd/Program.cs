@@ -72,13 +72,16 @@ let d = {
 
 variables.Test = ""Das ist ein TEst""
 
-let z = JSON.stringify(d)
+//let z = JSON.stringify(d)
 
-let y = d.VKZ.ToNullableInt();
+//let y = d.VKZ.ToNullableInt();
 
 
-let dict = new System.Collections.Generic.Dictionary$2<string, System.Collections.Generic.List$1<any>>();
-dict['qwert'] = new System.Collections.Generic.List$1<any>();
+let z = new System.Collections.Generic.Dictionary$2<string, System.Collections.Generic.List$1<Date>>();
+var l = new System.Collections.Generic.List$1<DAte>();//ignore
+l.Add(new Date());
+
+z['qwe'] = l;
 
 ";
 
@@ -90,13 +93,13 @@ dict['qwert'] = new System.Collections.Generic.List$1<any>();
 
             var m = tsEngine.GetModuleState<GlobalVariablesModule>();
 
-            var z = tsEngine.GetValue<string>("z");
-            var y = tsEngine.GetValue("y");
+            //var z = tsEngine.GetValue<string>("z");
+            //var y = tsEngine.GetValue("y");
 
             
-            var obj = tsEngine.GetValue("dict");
+            var obj = tsEngine.GetValue("z");
 
-            Console.WriteLine(z);
+            //Console.WriteLine(z);
 
         }
     }

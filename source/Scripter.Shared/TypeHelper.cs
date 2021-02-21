@@ -11,10 +11,16 @@ namespace Scripter.Shared
     public static class TypeHelper
     {
 
-        private static Dictionary<string, string> TypeMapping = new Dictionary<string, string>
+        private static Dictionary<string, string> TypeMapping = new Dictionary<string, string>(StringComparer.CurrentCultureIgnoreCase)
         {
             ["number"] = "double",
-            ["any"] = "object"
+            ["any"] = "object",
+            ["date"] = "System.DateTime"
+        };
+
+        private static List<string> BuiltInTypeScriptType = new List<string>()
+        {
+            "date"
         };
 
         public static object CreateObject(string typeName, object[] parameters)
@@ -35,24 +41,14 @@ namespace Scripter.Shared
 
         }
 
-        public static Type FindType(string typeName)
+        public static Type FindConstructorReplaceType(string typeName)
         {
-            //typeName = typeName.Replace("$", "`");
-            //typeName = RemoveGenericMarker(typeName);
+            if (BuiltInTypeScriptType.Contains(typeName.ToLower()))
+            {
+                return null;
+            }
             return Reflectensions.Helper.TypeHelper.FindType(typeName, TypeMapping);
         }
 
-        //private static string RemoveGenericMarker(string typeName)
-        //{
-        //    var regex = new Regex(@"`[\d+|\?]");
-        //    var match = regex.Match(typeName);
-
-        //    if (match.Success)
-        //    {
-        //        typeName = typeName.Replace(match.Value, "");
-        //    }
-
-        //    return typeName;
-        //}
     }
 }

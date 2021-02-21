@@ -101,7 +101,7 @@ namespace Scripter.Engine.TypeScript
                 return null;
 
 
-            Regex regex = new Regex(@"new\s(?<typeName>[a-zA-Z0-9_\.\s<>\[\]$,]+)\((?<parameters>[a-zA-Z0-9_\.,\s<>\[\]$'""]+)?\)");
+            Regex regex = new Regex(@"new\s(?<typeName>[a-zA-Z0-9_\.\s<>\[\]$,]+)\((?<parameters>[a-zA-Z0-9_\.,\s<>\[\]$'""]+)?\)(;)?(?<ignore>//ignore)?");
 
             //var match = regex.Match(sourceCode);
 
@@ -111,9 +111,14 @@ namespace Scripter.Engine.TypeScript
             {
                 foreach (Match match in matches)
                 {
+                    if (match.Groups["ignore"].Success)
+                    {
+                        continue;
+                    }
+
                     var typeName = match.Groups["typeName"].Value;
 
-                    var type = TypeHelper.FindType(typeName);
+                    var type = TypeHelper.FindConstructorReplaceType(typeName);
                     if (type != null)
                     {
                         var parameters = match.Groups["parameters"].Value;
