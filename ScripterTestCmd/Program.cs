@@ -78,10 +78,13 @@ variables.Test = ""Das ist ein TEst""
 
 
 let z = new System.Collections.Generic.Dictionary$2<string, System.Collections.Generic.List$1<Date>>();
-var l = new System.Collections.Generic.List$1<DAte>();//ignore
-l.Add(new Date());
+var l = new System.Collections.Generic.List$1<Date>();
+l.Add(new Date())
 
-z['qwe'] = l;
+
+z[""LLL""] = l;
+z[""qwert""] = new System.Collections.Generic.List$1<Date>();//ignore
+z[""qwert""].Add(new Date());
 
 ";
 
