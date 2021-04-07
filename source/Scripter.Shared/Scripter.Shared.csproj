@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="NamedServices.Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-    <PackageReference Include="Reflectensions" Version="4.12.1" />
+    <PackageReference Include="Reflectensions" Version="4.12.5" />
   </ItemGroup>
 
 </Project>

@@ -69,7 +69,7 @@ namespace Scripter.Engine.JavaScript
             _engine.SetValue("managedExit", managedExit);
             //_engine.Global.FastAddProperty("middler", new NamespaceReference(_engine, "middler"), false, false, false );
             //_engine.Execute("var middler = importNamespace('middler')");
-            _engine.Step += EngineOnStep;
+            _engine.DebugHandler.Step += EngineOnStep;
             _engine.SetValue("require", new Func<string, JsValue>(Require));
 
         }
@@ -102,6 +102,7 @@ namespace Scripter.Engine.JavaScript
         public void Stop()
         {
             managedExit = true;
+            
         }
 
         public object ConvertToDefaultObject(object value)

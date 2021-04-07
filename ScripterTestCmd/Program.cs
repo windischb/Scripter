@@ -63,6 +63,10 @@ namespace ScripterTestCmd
             var tsScript = @"
 
 import * as variables from 'GlobalVariables';
+
+var methods = variables.GetType().GetMethods();
+
+
 let data = variables.GetAny(""BPK/DefaultRequestValues"");
 
 let d = {
@@ -76,7 +80,7 @@ variables.Test = ""Das ist ein TEst""
 
 //let y = d.VKZ.ToNullableInt();
 
-
+exit();
 let z = new System.Collections.Generic.Dictionary$2<string, System.Collections.Generic.List$1<Date>>();
 var l = new System.Collections.Generic.List$1<Date>();
 l.Add(new Date())
@@ -101,6 +105,7 @@ z[""qwert""].Add(new Date());
 
             
             var obj = tsEngine.GetValue("z");
+            var methods = tsEngine.GetValue("methods");
 
             //Console.WriteLine(z);
 
