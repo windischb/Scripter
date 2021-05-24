@@ -8,11 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <PackageReference Include="doob.Reflectensions.CommonExtensions" Version="6.2.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="5.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Reflectensions.Json" Version="4.12.5" />
+    <PackageReference Include="doob.Reflectensions.Json" Version="6.2.0" />
     <PackageReference Include="Nito.AsyncEx.Tasks" Version="5.1.0" />
    
   </ItemGroup>

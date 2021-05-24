@@ -1,15 +1,16 @@
 ﻿using System;
-using Reflectensions.JsonConverters;
+using doob.Reflectensions;
+using doob.Reflectensions.JsonConverters;
 
 namespace Scripter.Module.Http
 {
     public class Converter
     {
-        private static readonly Lazy<Reflectensions.Json> lazyJson = new Lazy<Reflectensions.Json>(() => new Reflectensions.Json()
+        private static readonly Lazy<Json> lazyJson = new Lazy<Json>(() => new Json()
             .RegisterJsonConverter<ExpandoObjectConverter>(0)
         );
 
-        public static Reflectensions.Json Json => lazyJson.Value;
+        public static Json Json => lazyJson.Value;
 
     }
 }

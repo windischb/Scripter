@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
-using Reflectensions;
+using doob.Reflectensions;
 using Scripter.Shared;
 
 namespace ScripterTestCmd

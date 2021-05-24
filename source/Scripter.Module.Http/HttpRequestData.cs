@@ -7,10 +7,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using doob.Reflectensions;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
-using Reflectensions;
 
 namespace Scripter.Module.Http
 {
@@ -23,7 +23,7 @@ namespace Scripter.Module.Http
 
         public string Path { get; set; }
 
-        public async Task<HttpRequestMessage> BuildHttpRequestMessage(HttpHandlerOptions httpHandlerOptions, HttpMethod httpMethod, object content)
+        public HttpRequestMessage BuildHttpRequestMessage(HttpHandlerOptions httpHandlerOptions, HttpMethod httpMethod, object content)
         {
 
 
@@ -63,7 +63,7 @@ namespace Scripter.Module.Http
 
             if (content != null)
             {
-                message.Content = await CreateHttpContent(content);
+                message.Content = CreateHttpContent(content);
             }
 
             if (Headers.Any())
@@ -89,7 +89,7 @@ namespace Scripter.Module.Http
         }
 
 
-        private async Task<HttpContent> CreateHttpContent(object content)
+        private HttpContent CreateHttpContent(object content)
         {
             HttpContent httpContent = null;
 

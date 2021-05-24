@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Reflectensions.ExtensionMethods;
+
 
 namespace Scripter.Shared
 {
@@ -28,7 +25,7 @@ namespace Scripter.Shared
             //typeName = typeName.Replace("$", "`");
             //typeName = RemoveGenericMarker(typeName);
 
-            var type = Reflectensions.Helper.TypeHelper.FindType(typeName, TypeMapping);
+            var type = doob.Reflectensions.Helper.TypeHelper.FindType(typeName, TypeMapping);
 
             if (parameters?.Any() == true)
             {
@@ -47,7 +44,7 @@ namespace Scripter.Shared
             {
                 return null;
             }
-            return Reflectensions.Helper.TypeHelper.FindType(typeName, TypeMapping);
+            return doob.Reflectensions.Helper.TypeHelper.FindType(typeName, TypeMapping);
         }
 
     }

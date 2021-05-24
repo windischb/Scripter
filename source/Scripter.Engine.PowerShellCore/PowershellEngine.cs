@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Management.Automation;
 using System.Threading.Tasks;
-using Reflectensions;
-using Reflectensions.ExtensionMethods;
+using doob.Reflectensions;
+using doob.Reflectensions.ExtensionMethods;
+using Microsoft.PowerShell.Commands;
 using Scripter.Shared;
 
 namespace Scripter.Engine.PowerShellCore
@@ -55,12 +57,16 @@ namespace Scripter.Engine.PowerShellCore
 
         public object JsonParse(string json)
         {
-            return Json.Converter.ToObject<ExpandoObject>(json);
+            return JsonObject.ConvertFromJson(json, false, null, out var err);
+
+            //return Json.Converter.ToObject<ExpandoObject>(json);
         }
 
         public string JsonStringify(object value)
         {
-            return Json.Converter.ToJson(value);
+            var _json_context = new JsonObject.ConvertToJsonContext(maxDepth: 99, enumsAsStrings: true, compressOutput: true);
+            string json_result = JsonObject.ConvertToJson(value, _json_context);
+            return json_result; // Json.Converter.ToJson(value);
         }
 
         public void AddModuleParameterInstance(Type type, Func<object> factory)
@@ -92,13 +98,24 @@ namespace Scripter.Engine.PowerShellCore
         public string GetValueAsJson(string name)
         {
             var value = _psEngine.GetVariable(name);
-            return Json.Converter.ToJson(value);
+            return JsonStringify(value);
         }
 
         public T GetValue<T>(string name)
         {
             var value = _psEngine.GetVariable(name);
-            return value.To<T>();
+            if (LanguagePrimitives.TryConvertTo(value, out T val))
+            {
+                return val;
+            }
+
+            if (value.Reflect().TryTo(out T val2))
+            {
+                return val2;
+            }
+            var json = JsonStringify(value);
+
+            return Json.Converter.ToObject<T>(json);
 
 
         }

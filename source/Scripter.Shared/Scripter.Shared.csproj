@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="doob.Reflectensions" Version="6.2.0" />
     <PackageReference Include="NamedServices.Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-    <PackageReference Include="Reflectensions" Version="4.12.5" />
   </ItemGroup>
 
 </Project>

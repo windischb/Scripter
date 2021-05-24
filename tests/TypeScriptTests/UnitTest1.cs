@@ -6,7 +6,6 @@ using Jint;
 using Jint.Native;
 using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
-using Reflectensions;
 using Scripter;
 using Scripter.Engine.JavaScript;
 using Scripter.Engine.TypeScript;
@@ -47,7 +46,7 @@ namespace TypeScriptTests
             var tsEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("TypeScript");
 
             var tsScript = @"
-import * as con from 'Console';
+import * as con from 'ConsoleWriter';
 
 con.WriteLine('Hello')
 

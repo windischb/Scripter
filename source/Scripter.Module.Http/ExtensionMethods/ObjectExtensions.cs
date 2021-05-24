@@ -2,7 +2,7 @@
 using System.Dynamic;
 using System.Linq;
 using System.Net.Http.Headers;
-using Reflectensions;
+using doob.Reflectensions;
 
 namespace Scripter.Module.Http.ExtensionMethods
 {

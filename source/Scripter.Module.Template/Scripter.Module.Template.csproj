@@ -10,7 +10,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Scriban" Version="3.6.0" />
-		<PackageReference Include="Reflectensions.Json" Version="4.12.5" />
+    <PackageReference Include="doob.Reflectensions.Json" Version="6.2.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 

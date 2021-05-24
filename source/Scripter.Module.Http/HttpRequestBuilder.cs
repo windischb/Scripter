@@ -2,9 +2,10 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using doob.Reflectensions.Common;
 using Microsoft.Extensions.Primitives;
 using Nito.AsyncEx.Synchronous;
-using Reflectensions.ExtensionMethods;
+
 
 namespace Scripter.Module.Http
 {
@@ -123,7 +124,7 @@ namespace Scripter.Module.Http
 
         public async Task<HttpResponse> SendAsync(HttpMethod httpMethod, object content = null)
         {
-            var httpRequestMessage = await _requestData.BuildHttpRequestMessage(_httpHandlerOptions, httpMethod, content);
+            var httpRequestMessage = _requestData.BuildHttpRequestMessage(_httpHandlerOptions, httpMethod, content);
             Console.WriteLine($"SendAsync: {content}");
             try
             {

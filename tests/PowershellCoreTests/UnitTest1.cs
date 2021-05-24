@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Dynamic;
 using System.Threading.Tasks;
+using doob.Reflectensions;
 using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
-using Reflectensions;
 using Scripter;
 using Scripter.Engine.PowerShellCore;
 using Scripter.Engine.PowerShellCore.JsonConverter;
@@ -59,16 +62,36 @@ namespace PowershellCoreTests
             var psEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("PowerShellCore");
 
             var psScript = @"
-$res = ($PsVersionTable)[1]
+$res = $PsVersionTable.PSVersion
 ";
 
             await psEngine.ExecuteAsync(psScript);
-            var res = psEngine.GetValue("res");
+            var res = psEngine.GetValue<Version>("res");
 
+            Assert.Equal(7, res.Major);
             var json = Json.Converter.ToJson(res, true);
 
             _output.WriteLine(json);
 
+        }
+
+
+        [Fact]
+        public async Task GetProcessTest()
+        {
+            var proc = Process.GetCurrentProcess();
+            var psEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("PowerShellCore");
+
+            var psScript = @"
+$res = [System.Diagnostics.Process]::GetCurrentProcess()
+";
+
+            await psEngine.ExecuteAsync(psScript);
+            //var j = psEngine.GetValueAsJson("res");
+            var res = psEngine.GetValue<Process>("res");
+
+            Assert.Equal(proc.Id, res.Id);
+           
         }
     }
 }

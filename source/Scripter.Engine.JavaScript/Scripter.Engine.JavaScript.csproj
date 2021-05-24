@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Jint" Version="3.0.0-beta-2072" />
+    <PackageReference Include="doob.Reflectensions.Json" Version="6.2.0" />
+    <PackageReference Include="Jint" Version="3.0.0-beta-2083" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Reflectensions.Json" Version="4.12.5" />
   </ItemGroup>
 
 

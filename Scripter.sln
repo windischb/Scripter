@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.Engine.PowerShellC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.Module.Http", "source\Scripter.Module.Http\Scripter.Module.Http.csproj", "{DC2E81DB-9FAB-4878-81F6-639297B3278A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "_build\_build.csproj", "{113A8496-B9FF-4348-9491-24C5EB491C99}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowershellCoreTests", "tests\PowershellCoreTests\PowershellCoreTests.csproj", "{4356A6B8-ACB6-4943-B031-89EAA1A4784A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0EC324A7-4C5A-4B6F-8CA4-3385F5E6A3EE}"
@@ -37,9 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.Module.Common", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripter.Engines", "Scripter.Engines", "{382477B2-2526-47B5-B1B9-5CFAA4247465}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScripterTestCmd", "ScripterTestCmd\ScripterTestCmd.csproj", "{560D9FF8-4199-4977-8CAB-DFA14BA09B34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScripterTestCmd", "ScripterTestCmd\ScripterTestCmd.csproj", "{560D9FF8-4199-4977-8CAB-DFA14BA09B34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripter.Module.StringHelper", "source\Scripter.Module.StringHelper\Scripter.Module.StringHelper.csproj", "{5BD0AB7E-03CA-4B77-8D6F-15F0DB65FB90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripter.Module.StringHelper", "source\Scripter.Module.StringHelper\Scripter.Module.StringHelper.csproj", "{5BD0AB7E-03CA-4B77-8D6F-15F0DB65FB90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,8 +69,6 @@ Global
 		{DC2E81DB-9FAB-4878-81F6-639297B3278A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC2E81DB-9FAB-4878-81F6-639297B3278A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC2E81DB-9FAB-4878-81F6-639297B3278A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{113A8496-B9FF-4348-9491-24C5EB491C99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{113A8496-B9FF-4348-9491-24C5EB491C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4356A6B8-ACB6-4943-B031-89EAA1A4784A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4356A6B8-ACB6-4943-B031-89EAA1A4784A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4356A6B8-ACB6-4943-B031-89EAA1A4784A}.Release|Any CPU.ActiveCfg = Release|Any CPU

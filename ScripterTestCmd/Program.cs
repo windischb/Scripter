@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using doob.Reflectensions;
+using doob.Reflectensions.Common;
 using Jint;
 using Jint.Native;
 using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
-using Reflectensions;
-using Reflectensions.ExtensionMethods;
 using Scripter;
 using Scripter.Engine.JavaScript;
 using Scripter.Engine.TypeScript;

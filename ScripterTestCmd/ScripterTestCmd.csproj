@@ -6,7 +6,8 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Reflectensions.Json" Version="4.12.5" />
+    <PackageReference Include="doob.Reflectensions.CommonExtensions" Version="6.2.0" />
+    <PackageReference Include="doob.Reflectensions.Json" Version="6.2.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
 	</ItemGroup>
 

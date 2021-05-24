@@ -8,59 +8,50 @@ namespace Scripter.Engine.PowerShellCore
 
         public override ConsoleColor BackgroundColor
         {
-            get { return Console.BackgroundColor; }
-            set { Console.BackgroundColor = value; }
+            get => Console.BackgroundColor;
+            set => Console.BackgroundColor = value;
         }
 
         public override Size BufferSize
         {
-            get { return new Size(300, 3000); }
-            set { Console.SetBufferSize(value.Width, value.Height); }
+            get => new Size(300, 3000);
+            set => Console.SetBufferSize(value.Width, value.Height);
         }
 
         public override int CursorSize
         {
-            get { return Console.CursorSize; }
-            set { Console.CursorSize = value; }
+            get => Console.CursorSize;
+            set => Console.CursorSize = value;
         }
 
         public override ConsoleColor ForegroundColor
         {
-            get { return Console.ForegroundColor; }
-            set { Console.ForegroundColor = value; }
+            get => Console.ForegroundColor;
+            set => Console.ForegroundColor = value;
         }
 
-        public override bool KeyAvailable
-        {
-            get { return Console.KeyAvailable; }
-        }
+        public override bool KeyAvailable => Console.KeyAvailable;
 
-        public override Size MaxPhysicalWindowSize
-        {
-            get { return new Size(Console.LargestWindowWidth, Console.LargestWindowHeight); }
-        }
+        public override Size MaxPhysicalWindowSize => new Size(Console.LargestWindowWidth, Console.LargestWindowHeight);
 
-        public override Size MaxWindowSize
-        {
-            get { return new Size(Console.LargestWindowWidth, Console.LargestWindowHeight); }
-        }
+        public override Size MaxWindowSize => new Size(Console.LargestWindowWidth, Console.LargestWindowHeight);
 
         public override Coordinates WindowPosition
         {
-            get { return new Coordinates(Console.WindowLeft, Console.WindowTop); }
-            set { Console.SetWindowPosition(value.X, value.Y); }
+            get => new Coordinates(Console.WindowLeft, Console.WindowTop);
+            set => Console.SetWindowPosition(value.X, value.Y);
         }
 
         public override Size WindowSize
         {
-            get { return new Size(Console.WindowWidth, Console.WindowHeight); }
-            set { Console.SetWindowSize(value.Width, value.Height); }
+            get => new Size(Console.WindowWidth, Console.WindowHeight);
+            set => Console.SetWindowSize(value.Width, value.Height);
         }
 
         public override string WindowTitle
         {
-            get { return Console.Title; }
-            set { Console.Title = value; }
+            get => Console.Title;
+            set => Console.Title = value;
         }
 
         public override void FlushInputBuffer()
@@ -115,14 +106,8 @@ namespace Scripter.Engine.PowerShellCore
 
         public override Coordinates CursorPosition
         {
-            get
-            {
-                return new Coordinates(0, 0);
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get => new Coordinates(0, 0);
+            set => throw new NotImplementedException();
         }
 
         public override void ScrollBufferContents(Rectangle source, Coordinates destination, Rectangle clip, BufferCell fill)
