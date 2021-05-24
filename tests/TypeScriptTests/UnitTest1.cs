@@ -13,7 +13,6 @@ using Jint;
 using Jint.Native;
 using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
-using Scripter;
 using Xunit;
 using Xunit.Abstractions;
 

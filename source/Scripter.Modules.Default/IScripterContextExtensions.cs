@@ -4,7 +4,7 @@ using doob.Scripter.Module.Smtp;
 using doob.Scripter.Module.Template;
 using doob.Scripter.Shared;
 
-namespace Scripter.Modules.Default
+namespace doob.Scripter.Modules.Default
 {
     public static class IScripterContextExtensions
     {

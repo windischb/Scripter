@@ -1,11 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-	  <IncludeContentInPack>false</IncludeContentInPack>
-	  <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <TargetFrameworks>net5.0</TargetFrameworks>
+    <AssemblyName>doob.Scripter.Modules.Default</AssemblyName>
+    <RootNamespace>doob.Scripter.Modules.Default</RootNamespace>
+    <LangVersion>9</LangVersion>
+    <Nullable>enable</Nullable>
+    <IncludeContentInPack>false</IncludeContentInPack>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Authors>Bernhard Windisch</Authors>
+    <Company>-</Company>
+    <Description></Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/doob-at/Scripter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/doob-at/Scripter</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageId>doob.Scripter.Modules.Default</PackageId>
+    <Product>doob.Scripter.Modules.Default</Product>
+  </PropertyGroup>
 
 
   <ItemGroup>

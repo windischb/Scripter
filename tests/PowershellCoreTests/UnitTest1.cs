@@ -12,7 +12,6 @@ using doob.Scripter.Module.Http;
 using doob.Scripter.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
-using Scripter;
 using Xunit;
 using Xunit.Abstractions;
 
