@@ -59,47 +59,47 @@ con.WriteLine('Hello')
            
         }
 
-        [Fact]
-        public async Task HttpResponseAsObject()
-        {
-            var tsEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("TypeScript");
+//        [Fact]
+//        public async Task HttpResponseAsObject()
+//        {
+//            var tsEngine = ServiceProvider.GetRequiredNamedService<IScriptEngine>("TypeScript");
 
 
-            //var declarations = ServiceProvider.GetServices<ScripterTypeDefinition>();
+//            //var declarations = ServiceProvider.GetServices<ScripterTypeDefinition>();
 
-            //var imports = declarations.ToDictionary(d => $"{d.FileName}.d.ts", d => d.GetImports()).Where(kv => !String.IsNullOrWhiteSpace(kv.Value)).ToList();
-            //var tds = declarations.ToDictionary(d => $"{d.FileName}.d.ts", d => d.GetTypeDefinitions()).Where(kv => !String.IsNullOrWhiteSpace(kv.Value)).ToList();
-
-
-
-            var tsScript = @"
-import * as http from 'Http';
-import * as com from 'Common';
+//            //var imports = declarations.ToDictionary(d => $"{d.FileName}.d.ts", d => d.GetImports()).Where(kv => !String.IsNullOrWhiteSpace(kv.Value)).ToList();
+//            //var tds = declarations.ToDictionary(d => $"{d.FileName}.d.ts", d => d.GetTypeDefinitions()).Where(kv => !String.IsNullOrWhiteSpace(kv.Value)).ToList();
 
 
 
-var cl = http.Client('http://10.0.0.21:8123/api/states/switch.buero_fan_buero_ventilator')
-                    .SetBearerToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5M2VmNDdiNDc4ODg0MmI1YjFkYzM0OThjNjM0MWRiNyIsImlhdCI6MTYwMzkxNTA3OCwiZXhwIjoxOTE5Mjc1MDc4fQ.vTY4JseQEpmOkJw1UOkTWiyjALuewgtUR7HvaEqglKA'));
+//            var tsScript = @"
+//import * as http from 'Http';
+//import * as com from 'Common';
 
-                    var cont = cl.Get().Content;
-var resp = cont.AsText();
 
-var z = com.Json.Parse(resp)                    
-var zt = z.state;
 
-var json = com.Json.Stringify(cont.AsObject());
+//var cl = http.Client('http://10.0.0.21:8123/api/states/switch.buero_fan_buero_ventilator')
+//                    .SetBearerToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI5M2VmNDdiNDc4ODg0MmI1YjFkYzM0OThjNjM0MWRiNyIsImlhdCI6MTYwMzkxNTA3OCwiZXhwIjoxOTE5Mjc1MDc4fQ.vTY4JseQEpmOkJw1UOkTWiyjALuewgtUR7HvaEqglKA'));
 
-";
+//                    var cont = cl.Get().Content;
+//var resp = cont.AsText();
 
-            var jsScript = tsEngine.CompileScript(tsScript);
+//var z = com.Json.Parse(resp)                    
+//var zt = z.state;
 
-            await tsEngine.ExecuteAsync(jsScript);
+//var json = com.Json.Stringify(cont.AsObject());
 
-            var zt = (JsValue)tsEngine.GetValue("zt");
-            var state = zt.AsString();
+//";
 
-            var json = tsEngine.GetValue<string>("json");
-        }
+//            var jsScript = tsEngine.CompileScript(tsScript);
+
+//            await tsEngine.ExecuteAsync(jsScript);
+
+//            var zt = (JsValue)tsEngine.GetValue("zt");
+//            var state = zt.AsString();
+
+//            var json = tsEngine.GetValue<string>("json");
+//        }
 
 
     }
