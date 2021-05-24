@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using MimeKit;
 
-namespace Scripter.Module.Smtp
+namespace doob.Scripter.Module.Smtp
 {
     public class MMailMessage
     {
         internal MimeMessage message;
-        private BodyBuilder _bodyBuilder;
+        private BodyBuilder? _bodyBuilder;
 
         public MMailMessage()
         {

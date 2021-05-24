@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Management.Automation.Host;
+using System.Runtime.InteropServices;
 
-namespace Scripter.Engine.PowerShellCore
+namespace doob.Scripter.Engine.Powershell
 {
     internal class CustomPSHostRawUserInterface : PSHostRawUserInterface
     {
@@ -15,13 +16,27 @@ namespace Scripter.Engine.PowerShellCore
         public override Size BufferSize
         {
             get => new Size(300, 3000);
-            set => Console.SetBufferSize(value.Width, value.Height);
+            set
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Console.SetBufferSize(value.Width, value.Height);
+                }
+            }
+            
         }
 
         public override int CursorSize
         {
             get => Console.CursorSize;
-            set => Console.CursorSize = value;
+            set
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Console.CursorSize = value;
+                }
+            }
+           
         }
 
         public override ConsoleColor ForegroundColor
@@ -39,18 +54,32 @@ namespace Scripter.Engine.PowerShellCore
         public override Coordinates WindowPosition
         {
             get => new Coordinates(Console.WindowLeft, Console.WindowTop);
-            set => Console.SetWindowPosition(value.X, value.Y);
+            set
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Console.SetWindowPosition(value.X, value.Y);
+                }
+            }
+            
         }
 
         public override Size WindowSize
         {
             get => new Size(Console.WindowWidth, Console.WindowHeight);
-            set => Console.SetWindowSize(value.Width, value.Height);
+            set
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Console.SetWindowSize(value.Width, value.Height);
+                }
+            }
+            
         }
 
         public override string WindowTitle
         {
-            get => Console.Title;
+            get => "CustomPS";
             set => Console.Title = value;
         }
 

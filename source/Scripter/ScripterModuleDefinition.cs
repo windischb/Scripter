@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Scripter.Shared;
+using doob.Scripter.Shared;
 
-namespace Scripter
+namespace doob.Scripter
 {
     public class ScripterModuleDefinition: IScripterModuleDefinition
     {
         public string Name { get; set; }
-        public List<string> Tags { get; set; }
+        public List<string> Tags { get; set; } = new List<string>();
         public Type ModuleType { get; }
 
         public ScripterModuleDefinition(string name, Type moduleType)

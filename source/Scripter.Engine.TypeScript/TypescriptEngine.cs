@@ -3,12 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using doob.Scripter.Engine.Javascript;
+using doob.Scripter.Shared;
 using Esprima;
 using Jint;
-using Scripter.Engine.JavaScript;
-using Scripter.Shared;
 
-namespace Scripter.Engine.TypeScript
+namespace doob.Scripter.Engine.TypeScript
 {
     public class TypeScriptEngine : IScriptEngine
     {
@@ -34,17 +34,17 @@ namespace Scripter.Engine.TypeScript
             _javascriptEngine.Stop();
         }
 
-        public object ConvertToDefaultObject(object value)
+        public object? ConvertToDefaultObject(object? value)
         {
             return _javascriptEngine.ConvertToDefaultObject(value);
         }
 
-        public object JsonParse(string json)
+        public object? JsonParse(string? json)
         {
             return _javascriptEngine.JsonParse(json);
         }
 
-        public string JsonStringify(object value)
+        public string JsonStringify(object? value)
         {
             return _javascriptEngine.JsonStringify(value);
         }
@@ -59,7 +59,7 @@ namespace Scripter.Engine.TypeScript
             _javascriptEngine.AddTaggedModules(tags);
         }
 
-        public T GetModuleState<T>()
+        public T? GetModuleState<T>()
         {
             return _javascriptEngine.GetModuleState<T>();
         }
@@ -76,7 +76,7 @@ namespace Scripter.Engine.TypeScript
             return _javascriptEngine.GetValueAsJson(name);
         }
 
-        public T GetValue<T>(string name)
+        public T? GetValue<T>(string name)
         {
             return _javascriptEngine.GetValue<T>(name);
         }
@@ -94,11 +94,11 @@ namespace Scripter.Engine.TypeScript
         }
 
 
-        private static Esprima.Ast.Script TypeScriptScript;
+        private static Esprima.Ast.Script? TypeScriptScript;
         private string CompileScriptInternal(string sourceCode)
         {
             if (String.IsNullOrWhiteSpace(sourceCode))
-                return null;
+                return "";
 
 
             Regex regex = new Regex(@"new\s(?<typeName>[a-zA-Z0-9_\.\s<>\[\]$,]+)\((?<parameters>[a-zA-Z0-9_\.,\s<>\[\]$'""]+)?\)(;)?(?<ignore>//ignore)?");
@@ -107,7 +107,7 @@ namespace Scripter.Engine.TypeScript
 
             var matches = regex.Matches(sourceCode);
 
-            if (matches.Any())
+            if (matches.Count > 0)
             {
                 foreach (Match match in matches)
                 {
@@ -167,8 +167,11 @@ namespace Scripter.Engine.TypeScript
         {
             var type = typeof(TypeScriptEngine);
 
-            using (Stream stream = type.Assembly.GetManifestResourceStream($"{type.Namespace}.{resourceName}"))
+            using (Stream? stream = type.Assembly.GetManifestResourceStream($"{type.Namespace}.{resourceName}"))
             {
+                if (stream == null)
+                    throw new Exception($"Can't find Resource named '{type.Namespace}.{resourceName}'");
+
                 using (var reader = new StreamReader(stream))
                 {
                     return reader.ReadToEnd();

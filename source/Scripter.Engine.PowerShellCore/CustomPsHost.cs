@@ -2,13 +2,13 @@
 using System.Management.Automation.Host;
 using System.Threading;
 
-namespace Scripter.Engine.PowerShellCore
+namespace doob.Scripter.Engine.Powershell
 {
     internal class CustomPsHost : PSHost
     {
         private Guid _hostId = Guid.NewGuid();
-        private CustomPSHostUserInterface _ui = null;
-        private bool logToConsole = false;
+        private CustomPSHostUserInterface _ui;
+        private bool logToConsole;
 
         
         public CustomPsHost(bool logToConsole = false)

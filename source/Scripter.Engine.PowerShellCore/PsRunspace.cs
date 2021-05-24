@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
-using Scripter.Engine.PowerShellCore.Cmdlets;
+using doob.Scripter.Engine.Powershell.Cmdlets;
 
-namespace Scripter.Engine.PowerShellCore
+namespace doob.Scripter.Engine.Powershell
 {
     internal class PsRunspace: IDisposable
     {
@@ -46,7 +46,7 @@ namespace Scripter.Engine.PowerShellCore
 
         private object _psLock = new object();
 
-        private Pipeline _pipeline;
+        private Pipeline? _pipeline;
         public IEnumerable<PSObject> Invoke(string command)
         {
             lock (_psLock)

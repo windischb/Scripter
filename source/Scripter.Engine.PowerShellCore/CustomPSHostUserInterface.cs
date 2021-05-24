@@ -5,7 +5,7 @@ using System.Management.Automation;
 using System.Management.Automation.Host;
 using System.Text;
 
-namespace Scripter.Engine.PowerShellCore
+namespace doob.Scripter.Engine.Powershell
 {
     internal class CustomPSHostUserInterface : PSHostUserInterface
     {

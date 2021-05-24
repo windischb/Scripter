@@ -2,9 +2,22 @@
 
   <PropertyGroup>
     <TargetFrameworks>net5.0</TargetFrameworks>
-	  <Authors>Bernhard Windisch</Authors>
-	  <Product />
-	  <Company>-</Company>
+    <AssemblyName>doob.Scripter.Module.Http</AssemblyName>
+    <RootNamespace>doob.Scripter.Module.Http</RootNamespace>
+    <LangVersion>9</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Bernhard Windisch</Authors>
+    <Company>-</Company>
+    <Description></Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/doob-at/Scripter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/doob-at/Scripter</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageId>doob.Scripter.Module.Http</PackageId>
+    <Product>doob.Scripter.Module.Http</Product>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,12 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFrameworks>net5.0</TargetFrameworks>
-		<Authors>Bernhard Windisch</Authors>
-		<Product />
-		<Company>-</Company>
-		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworks>net5.0;netstandard2.0;net472</TargetFrameworks>
+    <AssemblyName>doob.Scripter.Module.StringHelper</AssemblyName>
+    <RootNamespace>doob.Scripter.Module.StringHelper</RootNamespace>
+    <LangVersion>9</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Bernhard Windisch</Authors>
+    <Company>-</Company>
+    <Description></Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/doob-at/Scripter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/doob-at/Scripter</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageId>doob.Scripter.Module.StringHelper</PackageId>
+    <Product>doob.Scripter.Module.StringHelper</Product>
+  </PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Scripter.Shared\Scripter.Shared.csproj" />

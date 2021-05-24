@@ -1,10 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-	  <Authors>Bernhard Windisch</Authors>
-	  <Product />
-	  <Company>-</Company>
+    <TargetFrameworks>net5.0;netstandard2.0;net472</TargetFrameworks>
+    <AssemblyName>doob.Scripter.Module.Smtp</AssemblyName>
+    <RootNamespace>doob.Scripter.Module.Smtp</RootNamespace>
+    <LangVersion>9</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Bernhard Windisch</Authors>
+    <Company>-</Company>
+    <Description></Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/doob-at/Scripter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/doob-at/Scripter</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageId>doob.Scripter.Module.Smtp</PackageId>
+    <Product>doob.Scripter.Module.Smtp</Product>
   </PropertyGroup>
 
   <ItemGroup>

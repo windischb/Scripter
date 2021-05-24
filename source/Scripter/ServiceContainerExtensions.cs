@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Text;
+using doob.Scripter.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Scripter.Shared;
 
-namespace Scripter
+namespace doob.Scripter
 {
     public static class ServiceCollectionExtensions
     {

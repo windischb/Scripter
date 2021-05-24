@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using doob.Reflectensions;
+using doob.Scripter.Shared;
 using Newtonsoft.Json.Linq;
 using Scriban.Runtime;
-using Scripter.Shared;
 
-namespace Scripter.Module.Template
+namespace doob.Scripter.Module.Template
 {
     public class TemplateModule: IScripterModule
     {
@@ -34,7 +34,7 @@ namespace Scripter.Module.Template
 
             var dict = Json.Converter.ToDictionary(jobject);
 
-            return ParseScriptObject(template, dict);
+            return ParseScriptObject(template, dict!);
         }
 
         private string ParseScriptObject(string template, Dictionary<string, object> data)

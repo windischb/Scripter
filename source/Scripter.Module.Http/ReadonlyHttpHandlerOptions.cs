@@ -1,16 +1,16 @@
 ﻿using System;
 
-namespace Scripter.Module.Http
+namespace doob.Scripter.Module.Http
 {
     internal class ReadonlyHttpHandlerOptions : IEquatable<ReadonlyHttpHandlerOptions>
     {
         public string DestinationHost { get; }
-        public string ProxyHost { get; }
+        public string? ProxyHost { get; }
         public bool IgnoreProxy { get; }
 
         public ReadonlyHttpHandlerOptions(HttpHandlerOptions httpHandlerOptions)
         {
-            DestinationHost = httpHandlerOptions.RequestUri?.Host;
+            DestinationHost = httpHandlerOptions.RequestUri.Host;
             ProxyHost = httpHandlerOptions.Proxy?.Address?.Host;
             IgnoreProxy = httpHandlerOptions.IgnoreProxy;
         }
@@ -20,7 +20,7 @@ namespace Scripter.Module.Http
 
         public static bool operator !=(ReadonlyHttpHandlerOptions left, ReadonlyHttpHandlerOptions right) => !Equals(left, right);
 
-        public bool Equals(ReadonlyHttpHandlerOptions other)
+        public bool Equals(ReadonlyHttpHandlerOptions? other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -29,7 +29,7 @@ namespace Scripter.Module.Http
                    Equals(IgnoreProxy, other.IgnoreProxy);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

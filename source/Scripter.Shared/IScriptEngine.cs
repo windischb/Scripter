@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Scripter.Shared
+namespace doob.Scripter.Shared
 {
     public interface IScriptEngine: IDisposable
     {
@@ -13,7 +13,7 @@ namespace Scripter.Shared
 
         void SetValue(string name, object value);
         string GetValueAsJson(string name);
-        T GetValue<T>(string name);
+        T? GetValue<T>(string name);
 
         object GetValue(string name);
 
@@ -21,16 +21,16 @@ namespace Scripter.Shared
         
         void Stop();
 
-        object ConvertToDefaultObject(object value);
-        object JsonParse(string json);
-        string JsonStringify(object value);
+        object? ConvertToDefaultObject(object? value);
+        object? JsonParse(string? json);
+        string JsonStringify(object? value);
 
 
         void AddModuleParameterInstance(Type type, Func<object> factory);
 
         void AddTaggedModules(params string[] tags);
 
-        T GetModuleState<T>();
+        T? GetModuleState<T>();
 
     }
 }

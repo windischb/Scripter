@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
-namespace Scripter.Shared
+namespace doob.Scripter.Shared
 {
     public static class TypeHelper
     {
@@ -20,12 +19,14 @@ namespace Scripter.Shared
             "date"
         };
 
-        public static object CreateObject(string typeName, object[] parameters)
+        public static object? CreateObject(string typeName, object[] parameters)
         {
             //typeName = typeName.Replace("$", "`");
             //typeName = RemoveGenericMarker(typeName);
 
             var type = doob.Reflectensions.Helper.TypeHelper.FindType(typeName, TypeMapping);
+            if (type == null)
+                return null;
 
             if (parameters?.Any() == true)
             {
@@ -38,7 +39,7 @@ namespace Scripter.Shared
 
         }
 
-        public static Type FindConstructorReplaceType(string typeName)
+        public static Type? FindConstructorReplaceType(string typeName)
         {
             if (BuiltInTypeScriptType.Contains(typeName.ToLower()))
             {

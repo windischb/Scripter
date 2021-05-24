@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using doob.Scripter.Shared;
 using Microsoft.Extensions.DependencyInjection;
-using NamedServices.Microsoft.Extensions.DependencyInjection;
-using Scripter.Shared;
 
-namespace Scripter.Engine.PowerShellCore
+namespace doob.Scripter.Engine.Powershell
 {
     public class ScripterModulesProvider
     {

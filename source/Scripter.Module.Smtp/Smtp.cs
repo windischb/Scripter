@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
+using doob.Scripter.Shared;
 using MailKit.Security;
-using Scripter.Shared;
 
-namespace Scripter.Module.Smtp
+namespace doob.Scripter.Module.Smtp
 {
     public class SmtpModule: IScripterModule
     {
@@ -131,13 +131,13 @@ namespace Scripter.Module.Smtp
 
     public class MSmtpClientOptions
     {
-        public string SMTPServer { get; set; }
+        public string? SMTPServer { get; set; }
         public int SMTPServerPort { get; set; } = 25;
 
         public bool UseSSL { get; set; } = true;
         public bool IgnoreSSLError { get; set; }
 
-        public NetworkCredential Credentials { get; set; }
+        public NetworkCredential? Credentials { get; set; }
 
     }
 }

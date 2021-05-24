@@ -2,7 +2,7 @@
 using System.Management.Automation;
 using Newtonsoft.Json;
 
-namespace Scripter.Engine.PowerShellCore.JsonConverter
+namespace doob.Scripter.Engine.Powershell.JsonConverter
 {
     public class PSObjectJsonConverter : Newtonsoft.Json.JsonConverter
     {
@@ -11,11 +11,12 @@ namespace Scripter.Engine.PowerShellCore.JsonConverter
             return typeof(PSObject).IsAssignableFrom(objectType);
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            var psObj = (PSObject)value;
 
-            object obj = null;
+            var psObj = (PSObject)value!;
+
+            object? obj = null;
             if (psObj.BaseObject is PSCustomObject)
             {
                 writer.WriteStartObject();
@@ -38,7 +39,7 @@ namespace Scripter.Engine.PowerShellCore.JsonConverter
 
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }

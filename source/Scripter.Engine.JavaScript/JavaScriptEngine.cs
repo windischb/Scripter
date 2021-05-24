@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using doob.Reflectensions;
+using doob.Scripter.Shared;
 using Esprima;
 using Jint;
 using Jint.Native;
 using Jint.Runtime;
 using Jint.Runtime.Debugger;
 using Microsoft.Extensions.DependencyInjection;
-using NamedServices.Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
-using Scripter.Shared;
 
-namespace Scripter.Engine.JavaScript
+namespace doob.Scripter.Engine.Javascript
 {
 
     public class JavaScriptEngine : IScriptEngine
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IScripterModuleRegistry _scripterModuleRegistry;
-        public Func<string, string> CompileScript => null;
+        public Func<string, string> CompileScript => s => s;
         public bool NeedsCompiledScript => false;
 
         private Jint.Engine _engine;
@@ -63,7 +60,7 @@ namespace Scripter.Engine.JavaScript
             }
             
             _engine.SetValue("setManagedExit", new Action<bool>(SetManagedExit));
-            _engine.SetValue("NewObject", new Func<string, object[], object>(TypeHelper.CreateObject));
+            _engine.SetValue("NewObject", new Func<string, object[], object?>(TypeHelper.CreateObject));
             managedExit = false;
             _engine.SetValue("managedExit", managedExit);
             //_engine.Global.FastAddProperty("middler", new NamespaceReference(_engine, "middler"), false, false, false );
@@ -104,13 +101,16 @@ namespace Scripter.Engine.JavaScript
             
         }
 
-        public object ConvertToDefaultObject(object value)
+        public object? ConvertToDefaultObject(object? value)
         {
-            string json = JsonStringify(value);
+            if (value == null)
+                return null;
+
+            var json = JsonStringify(value);
             return JsonParse(json);
         }
 
-        public object JsonParse(string json)
+        public object? JsonParse(string? json)
         {
             if (json == null)
                 return null;
@@ -119,11 +119,10 @@ namespace Scripter.Engine.JavaScript
             return _engine.Json.Parse(val, new JsValue[] { val });
         }
 
-        public string JsonStringify(object value)
+        public string JsonStringify(object? value)
         {
 
-            if (value == null)
-                return null;
+            
 
             switch (value)
             {
@@ -138,6 +137,8 @@ namespace Scripter.Engine.JavaScript
                     }
             }
 
+            value ??= JValue.CreateNull();
+
             return Json.Converter.ToJson(value);
         }
 
@@ -151,7 +152,7 @@ namespace Scripter.Engine.JavaScript
             _useTaggedModules.AddRange(tags);
         }
 
-        public T GetModuleState<T>()
+        public T? GetModuleState<T>()
         {
             var type = typeof(T);
             if (_instantiatedModules.ContainsKey(type))
@@ -190,7 +191,7 @@ namespace Scripter.Engine.JavaScript
             return _engine.Json.Stringify(value, new JsValue[] { value }).AsString();
         }
 
-        public T GetValue<T>(string name)
+        public T? GetValue<T>(string name)
         {
             return Json.Converter.ToObject<T>(GetValueAsJson(name));
         }
@@ -251,7 +252,9 @@ namespace Scripter.Engine.JavaScript
 
         public void Dispose()
         {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             _engine = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
     }
 }

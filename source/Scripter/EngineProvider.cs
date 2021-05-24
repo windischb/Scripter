@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
+using doob.Scripter.Shared;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
-using Scripter.Shared;
 
-namespace Scripter
+namespace doob.Scripter
 {
     public class EngineProvider
     {

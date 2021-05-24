@@ -6,8 +6,7 @@ using doob.Reflectensions;
 using Newtonsoft.Json.Linq;
 using Nito.AsyncEx.Synchronous;
 
-
-namespace Scripter.Module.Http
+namespace doob.Scripter.Module.Http
 {
     public class GenericHttpContent : IDisposable
     {
@@ -16,9 +15,9 @@ namespace Scripter.Module.Http
 
         private readonly string _text;
 
-        private JToken _jToken;
+        private JToken? _jToken = null;
 
-        public string Type { get; set; }
+        public string? Type { get; set; }
 
         public bool IsArray
         {
@@ -28,7 +27,7 @@ namespace Scripter.Module.Http
                 {
                     case "json":
                     {
-                        return _jToken.Type == JTokenType.Array;
+                        return _jToken?.Type == JTokenType.Array;
                     }
                 }
 
@@ -48,7 +47,7 @@ namespace Scripter.Module.Http
 
         private void ProcessContent()
         {
-            switch (_httpContent.Headers.ContentType.MediaType)
+            switch (_httpContent.Headers.ContentType?.MediaType)
             {
                 case "application/json":
                 {
@@ -71,8 +70,11 @@ namespace Scripter.Module.Http
             return _text;
         }
 
-        public object AsObject()
+        public object? AsObject()
         {
+            if (_jToken == null)
+                return null;
+
             switch (Type)
             {
                 case "json":
@@ -85,13 +87,19 @@ namespace Scripter.Module.Http
             throw new NotImplementedException();
         }
 
-        public object[] AsArray()
+        public object?[]? AsArray()
         {
             switch (Type)
             {
                 case "json":
                 {
-                    return Json.Converter.ToBasicDotNetObjectEnumerable(_jToken as JArray).ToArray();
+                    if (_jToken is JArray arr)
+                    {
+                        var en = Json.Converter.ToBasicDotNetObjectEnumerable(arr);
+                        return en?.ToArray();
+                    }
+
+                    return null;
                 }
 
             }

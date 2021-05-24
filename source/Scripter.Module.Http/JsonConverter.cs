@@ -2,7 +2,7 @@
 using doob.Reflectensions;
 using doob.Reflectensions.JsonConverters;
 
-namespace Scripter.Module.Http
+namespace doob.Scripter.Module.Http
 {
     public class Converter
     {

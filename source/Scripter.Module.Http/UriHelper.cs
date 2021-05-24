@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Scripter.Module.Http
+namespace doob.Scripter.Module.Http
 {
     public static class UriHelper
     {

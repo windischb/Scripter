@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Scripter.Module.Http
+namespace doob.Scripter.Module.Http
 {
     public class HttpOptionsBuilder
     {

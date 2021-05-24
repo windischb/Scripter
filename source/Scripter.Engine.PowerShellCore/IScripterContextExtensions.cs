@@ -1,6 +1,6 @@
-﻿using Scripter.Shared;
+﻿using doob.Scripter.Shared;
 
-namespace Scripter.Engine.PowerShellCore
+namespace doob.Scripter.Engine.Powershell
 {
     public static class IScripterContextExtensions
     {

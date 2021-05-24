@@ -6,24 +6,23 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 using doob.Reflectensions;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 
-namespace Scripter.Module.Http
+namespace doob.Scripter.Module.Http
 {
     public class HttpRequestData
     {
         public ConcurrentDictionary<string, StringValues> QueryParameters { get; } = new ConcurrentDictionary<string, StringValues>();
         public ConcurrentDictionary<string, List<string>> Headers { get; } = new ConcurrentDictionary<string, List<string>>();
 
-        public string ContentType { get; set; }
+        public string? ContentType { get; set; }
 
-        public string Path { get; set; }
+        public string? Path { get; set; }
 
-        public HttpRequestMessage BuildHttpRequestMessage(HttpHandlerOptions httpHandlerOptions, HttpMethod httpMethod, object content)
+        public HttpRequestMessage BuildHttpRequestMessage(HttpHandlerOptions httpHandlerOptions, HttpMethod httpMethod, object? content)
         {
 
 
@@ -80,7 +79,7 @@ namespace Scripter.Module.Http
             }
 
 
-            if (!String.IsNullOrWhiteSpace(ContentType))
+            if (!String.IsNullOrWhiteSpace(ContentType) && message.Content != null)
             {
                 message.Content.Headers.ContentType = new MediaTypeHeaderValue(ContentType);
             }
@@ -89,14 +88,15 @@ namespace Scripter.Module.Http
         }
 
 
-        private HttpContent CreateHttpContent(object content)
+        private HttpContent? CreateHttpContent(object? content)
         {
-            HttpContent httpContent = null;
+            
 
             if (content == null)
                 return null;
 
             var ms = new MemoryStream();
+            HttpContent httpContent;
 
             if (content is string str)
             {

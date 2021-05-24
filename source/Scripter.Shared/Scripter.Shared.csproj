@@ -1,11 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-	  <Authors>Bernhard Windisch</Authors>
-	  <Product />
-	  <Company>-</Company>
+    <TargetFrameworks>net5.0;netstandard2.0;net472</TargetFrameworks>
+    <AssemblyName>doob.Scripter.Shared</AssemblyName>
+    <RootNamespace>doob.Scripter.Shared</RootNamespace>
+    <LangVersion>9</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Bernhard Windisch</Authors>
+    <Company>-</Company>
+    <Description></Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/doob-at/Scripter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/doob-at/Scripter</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageId>doob.Scripter.Shared</PackageId>
+    <Product>doob.Scripter.Shared</Product>
   </PropertyGroup>
 
   <ItemGroup>

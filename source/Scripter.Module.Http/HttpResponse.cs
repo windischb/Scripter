@@ -2,9 +2,9 @@
 using System.Dynamic;
 using System.Net;
 using System.Net.Http;
-using Scripter.Module.Http.ExtensionMethods;
+using doob.Scripter.Module.Http.ExtensionMethods;
 
-namespace Scripter.Module.Http
+namespace doob.Scripter.Module.Http
 {
     public class HttpResponse : IDisposable
     {
@@ -13,22 +13,23 @@ namespace Scripter.Module.Http
 
         public Version Version => _httpResponseMessage.Version;
 
-        private GenericHttpContent _content;
-        public GenericHttpContent Content => _content = _content ?? new GenericHttpContent(_httpResponseMessage.Content);
+        private GenericHttpContent? _content;
+        public GenericHttpContent Content => _content ??= new GenericHttpContent(_httpResponseMessage.Content);
 
-        private ExpandoObject _contentHeaders;
-        public ExpandoObject ContentHeaders => _contentHeaders = _contentHeaders ?? _httpResponseMessage.Content?.Headers?.ToExpandoObject();
+        private ExpandoObject? _contentHeaders;
+        public ExpandoObject? ContentHeaders => _contentHeaders ??= _httpResponseMessage.Content.Headers.ToExpandoObject();
 
         public HttpStatusCode StatusCode => _httpResponseMessage.StatusCode;
-        public string ReasonPhrase => _httpResponseMessage.ReasonPhrase;
+        public string? ReasonPhrase => _httpResponseMessage.ReasonPhrase;
 
-        private ExpandoObject _headers;
-        public ExpandoObject Headers => _headers = _headers ?? _httpResponseMessage.Headers.ToExpandoObject();
+        private ExpandoObject? _headers;
+        public ExpandoObject? Headers => _headers ??= _httpResponseMessage.Headers.ToExpandoObject();
 
-#if NETCOREAPP3_1
-        private ExpandoObject _trailingheaders;
-        public ExpandoObject TrailingHeaders => _trailingheaders = _trailingheaders ?? _httpResponseMessage.TrailingHeaders.ToExpandoObject();
-#endif
+
+        private ExpandoObject? _trailingheaders;
+        public ExpandoObject? TrailingHeaders => _trailingheaders ??= _httpResponseMessage.TrailingHeaders.ToExpandoObject();
+
+
         public bool IsSuccessStatusCode => _httpResponseMessage.IsSuccessStatusCode;
         public HttpResponse EnsureSuccessStatusCode()
         {

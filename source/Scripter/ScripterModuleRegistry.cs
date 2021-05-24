@@ -3,11 +3,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using doob.Scripter.Shared;
 using Microsoft.Extensions.DependencyInjection;
-using Scripter.Shared;
 
-namespace Scripter
+namespace doob.Scripter
 {
     public class ScripterModuleRegistry : IScripterModuleRegistry
     {
@@ -18,7 +17,7 @@ namespace Scripter
         internal static void RegisterModule(Type moduleType)
         {
 
-            if (_registered.Contains(moduleType.FullName))
+            if (_registered.Contains(moduleType.FullName!))
                 return;
 
             var moduleAttribute = moduleType.GetCustomAttribute<ScripterModuleAttribute>();
@@ -26,17 +25,17 @@ namespace Scripter
             var name = moduleAttribute?.Name ?? TrimEnd(moduleType.Name, "Module");
             
             var moduleDefinition = new ScripterModuleDefinition(name, moduleType);
-            moduleDefinition.Tags = moduleAttribute?.Tags?.Select(t => t.ToLower()).ToList();
+            moduleDefinition.Tags = moduleAttribute?.Tags?.Select(t => t.ToLower()).ToList() ?? new List<string>();
 
             RegisteredModules.TryAdd(name, moduleDefinition);
 
-            _registered.Add(moduleType.FullName);
+            _registered.Add(moduleType.FullName!);
            
         }
         
         public IScripterModule BuildModuleInstance(string name, IServiceProvider serviceProvider,
-            IScriptEngine currentScriptEngine, Dictionary<Type, Func<object>> instanceDictionary = null,
-            List<string> useTaggedModules = null)
+            IScriptEngine currentScriptEngine, Dictionary<Type, Func<object>>? instanceDictionary = null,
+            List<string>? useTaggedModules = null)
         {
 
             if (!RegisteredModules.TryGetValue(name, out var module))
@@ -70,11 +69,11 @@ namespace Scripter
             }
             else
             {
-                instanceDictionary = instanceDictionary ?? new Dictionary<Type, Func<object>>();
+                instanceDictionary ??= new Dictionary<Type, Func<object>>();
                 instanceDictionary[typeof(IScriptEngine)] = () => currentScriptEngine;
 
 
-                return (IScripterModule)Activator.CreateInstance(module.ModuleType, BuildConstructorParameters(parameterInfos, serviceProvider, instanceDictionary));
+                return (IScripterModule)Activator.CreateInstance(module.ModuleType, BuildConstructorParameters(parameterInfos, serviceProvider, instanceDictionary))!;
             }
 
         }
@@ -96,7 +95,7 @@ namespace Scripter
                 }
                 else
                 {
-                    parameterInstances.Add(serviceProvider.GetService(parameterInfo.ParameterType));
+                    parameterInstances.Add(serviceProvider.GetService(parameterInfo.ParameterType)!);
                 }
             }
 

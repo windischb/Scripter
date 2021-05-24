@@ -1,8 +1,8 @@
-﻿using Scripter.Module.ConsoleWriter;
-using Scripter.Module.Http;
-using Scripter.Module.Smtp;
-using Scripter.Module.Template;
-using Scripter.Shared;
+﻿using doob.Scripter.Module.ConsoleWriter;
+using doob.Scripter.Module.Http;
+using doob.Scripter.Module.Smtp;
+using doob.Scripter.Module.Template;
+using doob.Scripter.Shared;
 
 namespace Scripter.Modules.Default
 {

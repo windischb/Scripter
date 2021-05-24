@@ -1,7 +1,7 @@
 ﻿using System;
-using Scripter.Shared;
+using doob.Scripter.Shared;
 
-namespace Scripter.Module.ConsoleWriter
+namespace doob.Scripter.Module.ConsoleWriter
 {
 
     public class ConsoleWriterModule: IScripterModule

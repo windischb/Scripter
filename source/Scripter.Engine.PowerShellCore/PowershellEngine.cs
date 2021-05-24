@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Management.Automation;
 using System.Threading.Tasks;
 using doob.Reflectensions;
 using doob.Reflectensions.ExtensionMethods;
+using doob.Scripter.Shared;
 using Microsoft.PowerShell.Commands;
-using Scripter.Shared;
 
-namespace Scripter.Engine.PowerShellCore
+namespace doob.Scripter.Engine.Powershell
 {
     public class PowerShellCoreEngine: IScriptEngine
     {
         private readonly IServiceProvider _serviceProvider;
         
-        public Func<string, string> CompileScript => null;
+        public Func<string, string> CompileScript => s => s;
         public bool NeedsCompiledScript => false;
        
 
@@ -30,18 +29,22 @@ namespace Scripter.Engine.PowerShellCore
             _serviceProvider = serviceProvider;
 
             _psEngine = new PsRunspace();
-            Initialize();
-        }
-        
-        private void Initialize()
-        {
+
             _scripterModulesProvider =
                 new ScripterModulesProvider(_serviceProvider, this, ProvidedTypeFactories, UseTaggedModules);
 
             _psEngine.SetVariable("ModulesProvider", _scripterModulesProvider);
+        }
+        
+        //private void Initialize()
+        //{
+        //    _scripterModulesProvider =
+        //        new ScripterModulesProvider(_serviceProvider, this, ProvidedTypeFactories, UseTaggedModules);
+
+        //    _psEngine.SetVariable("ModulesProvider", _scripterModulesProvider);
 
             
-        }
+        //}
 
         public void Stop()
         {
@@ -49,20 +52,20 @@ namespace Scripter.Engine.PowerShellCore
             _psEngine.Stop();
         }
 
-        public object ConvertToDefaultObject(object value)
+        public object? ConvertToDefaultObject(object? value)
         {
             var json = JsonStringify(value);
             return JsonParse(json);
         }
 
-        public object JsonParse(string json)
+        public object JsonParse(string? json)
         {
             return JsonObject.ConvertFromJson(json, false, null, out var err);
 
             //return Json.Converter.ToObject<ExpandoObject>(json);
         }
 
-        public string JsonStringify(object value)
+        public string JsonStringify(object? value)
         {
             var _json_context = new JsonObject.ConvertToJsonContext(maxDepth: 99, enumsAsStrings: true, compressOutput: true);
             string json_result = JsonObject.ConvertToJson(value, _json_context);
@@ -79,7 +82,7 @@ namespace Scripter.Engine.PowerShellCore
             UseTaggedModules.AddRange(tags);
         }
 
-        public T GetModuleState<T>()
+        public T? GetModuleState<T>()
         {
             var type = typeof(T);
             if (_scripterModulesProvider._instantiatedModules.ContainsKey(type))
@@ -101,7 +104,7 @@ namespace Scripter.Engine.PowerShellCore
             return JsonStringify(value);
         }
 
-        public T GetValue<T>(string name)
+        public T? GetValue<T>(string name)
         {
             var value = _psEngine.GetVariable(name);
             if (LanguagePrimitives.TryConvertTo(value, out T val))
@@ -109,9 +112,9 @@ namespace Scripter.Engine.PowerShellCore
                 return val;
             }
 
-            if (value.Reflect().TryTo(out T val2))
+            if (value.Reflect().TryTo(typeof(T), out var val2))
             {
-                return val2;
+                return (T)val2!;
             }
             var json = JsonStringify(value);
 
@@ -131,7 +134,7 @@ namespace Scripter.Engine.PowerShellCore
             return Task.CompletedTask;
         }
 
-        public string Invoke(string script)
+        public string? Invoke(string script)
         {
             
             var results = _psEngine.Invoke(script).ToList();

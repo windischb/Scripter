@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Scripter.Shared
+namespace doob.Scripter.Shared
 {
     public interface IScripterModuleDefinition
     {

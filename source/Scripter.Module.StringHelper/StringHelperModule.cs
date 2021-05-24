@@ -1,8 +1,7 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Scripter.Shared;
+﻿using System.Text.RegularExpressions;
+using doob.Scripter.Shared;
 
-namespace Scripter.Module.StringHelper
+namespace doob.Scripter.Module.StringHelper
 {
     public class StringHelperModule: IScripterModule
     {

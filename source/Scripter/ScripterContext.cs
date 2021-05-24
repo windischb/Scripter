@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+using doob.Scripter.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using NamedServices.Microsoft.Extensions.DependencyInjection;
-using Scripter.Shared;
 
-namespace Scripter
+namespace doob.Scripter
 {
     public class ScripterContext : IScripterContext
     {
@@ -27,7 +24,7 @@ namespace Scripter
 
         public IScripterContext AddScripterEngine(Type engineType)
         {
-            if (_registered.Contains(engineType.FullName))
+            if (_registered.Contains(engineType.FullName!))
                 return this;
 
             var language = TrimEnd(engineType.Name, "Engine");
@@ -35,7 +32,7 @@ namespace Scripter
             _serviceCollection.TryAddTransient(engineType);
             _serviceCollection.TryAddNamedTransient(typeof(IScriptEngine), language, engineType);
 
-            _registered.Add(engineType.FullName);
+            _registered.Add(engineType.FullName!);
             return this;
         }
         
@@ -46,7 +43,7 @@ namespace Scripter
 
         public IScripterContext AddScripterEngine(Type engineType, Func<IServiceProvider, object> factory)
         {
-            if (_registered.Contains(engineType.FullName))
+            if (_registered.Contains(engineType.FullName!))
                 return this;
 
             var language = TrimEnd(engineType.Name, "Engine");
@@ -54,7 +51,7 @@ namespace Scripter
             _serviceCollection.TryAddTransient(engineType);
             _serviceCollection.TryAddNamedTransient(typeof(IScriptEngine), language, factory);
 
-            _registered.Add(engineType.FullName);
+            _registered.Add(engineType.FullName!);
             return this;
         }
 

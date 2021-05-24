@@ -1,7 +1,7 @@
-﻿using Scripter.Engine.JavaScript;
-using Scripter.Shared;
+﻿using doob.Scripter.Engine.Javascript;
+using doob.Scripter.Shared;
 
-namespace Scripter.Engine.TypeScript
+namespace doob.Scripter.Engine.TypeScript
 {
     public static class IScripterContextExtensions
     {

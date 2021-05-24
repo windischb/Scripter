@@ -1,7 +1,7 @@
 ﻿using System;
-using Scripter.Shared;
+using doob.Scripter.Shared;
 
-namespace Scripter.Module.Common
+namespace doob.Scripter.Module.Common
 {
     
     public class CommonModule: IScripterModule
@@ -34,7 +34,7 @@ namespace Scripter.Module.Common
             _scriptEngine = scriptEngine;
         }
 
-        public object Parse(string value)
+        public object? Parse(string value)
         {
             return _scriptEngine.JsonParse(value);
         }

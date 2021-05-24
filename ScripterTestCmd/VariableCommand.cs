@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 using doob.Reflectensions;
-using Scripter.Shared;
+using doob.Scripter.Shared;
 
 namespace ScripterTestCmd
 {

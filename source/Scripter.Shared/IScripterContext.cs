@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Scripter.Shared
+namespace doob.Scripter.Shared
 {
     public interface IScripterContext
     {

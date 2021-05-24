@@ -1,7 +1,7 @@
 ﻿using System;
-using Scripter.Shared;
+using doob.Scripter.Shared;
 
-namespace Scripter.Module.Http
+namespace doob.Scripter.Module.Http
 {
     
     public class HttpModule: IScripterModule

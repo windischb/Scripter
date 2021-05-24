@@ -6,8 +6,7 @@ using doob.Reflectensions.Common;
 using Microsoft.Extensions.Primitives;
 using Nito.AsyncEx.Synchronous;
 
-
-namespace Scripter.Module.Http
+namespace doob.Scripter.Module.Http
 {
     public class HttpRequestBuilder : IHttpRequestBuilder
     {
@@ -117,12 +116,12 @@ namespace Scripter.Module.Http
             return new HttpResponse(respMsg);
         }
 
-        public Task<HttpResponse> SendAsync(string httpMethod, object content = null)
+        public Task<HttpResponse> SendAsync(string httpMethod, object? content = null)
         {
             return SendAsync(new HttpMethod(httpMethod), content);
         }
 
-        public async Task<HttpResponse> SendAsync(HttpMethod httpMethod, object content = null)
+        public async Task<HttpResponse> SendAsync(HttpMethod httpMethod, object? content = null)
         {
             var httpRequestMessage = _requestData.BuildHttpRequestMessage(_httpHandlerOptions, httpMethod, content);
             Console.WriteLine($"SendAsync: {content}");
@@ -161,7 +160,7 @@ namespace Scripter.Module.Http
         }
 
         
-        public Task<HttpResponse> DeleteAsync(object content)
+        public Task<HttpResponse> DeleteAsync(object? content)
         {
             return SendAsync(HttpMethod.Delete, content);
         }
@@ -171,12 +170,12 @@ namespace Scripter.Module.Http
             return DeleteAsync(null);
         }
 
-        public HttpResponse Send(string httpMethod, object content = null)
+        public HttpResponse Send(string httpMethod, object? content = null)
         {
             return SendAsync(httpMethod, content).WaitAndUnwrapException();
         }
 
-        public HttpResponse Send(HttpMethod httpMethod, object content = null)
+        public HttpResponse Send(HttpMethod httpMethod, object? content = null)
         {
             return SendAsync(httpMethod, content).WaitAndUnwrapException();
         }
@@ -207,7 +206,7 @@ namespace Scripter.Module.Http
             return PatchAsync(content).WaitAndUnwrapException();
         }
 
-        public HttpResponse Delete(object content)
+        public HttpResponse Delete(object? content)
         {
             return DeleteAsync(content).WaitAndUnwrapException();
         }
