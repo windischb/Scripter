@@ -45,7 +45,8 @@ namespace doob.Scripter.Module.Http
                     socketsHandler.SslOptions.ClientCertificates.Add(handlerOptionsClientCertificate);
                 }
             }
-           
+
+            
 
             return socketsHandler;
 

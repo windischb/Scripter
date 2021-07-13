@@ -20,15 +20,15 @@ namespace doob.Scripter.Module.Http
 
         public string? ContentType { get; set; }
 
-        public string? Path { get; set; }
+        public List<string> PathSegments { get; set; } = new List<string>();
 
         public HttpRequestMessage BuildHttpRequestMessage(HttpHandlerOptions httpHandlerOptions, HttpMethod httpMethod, object? content)
         {
 
 
-            var requestUri = String.IsNullOrWhiteSpace(Path)
+            var requestUri = !PathSegments.Any()
                 ? httpHandlerOptions.RequestUri
-                : new Uri(httpHandlerOptions.RequestUri, Path);
+                : new Uri(httpHandlerOptions.RequestUri, String.Join('/', PathSegments));
 
             
 
@@ -59,7 +59,7 @@ namespace doob.Scripter.Module.Http
            
 
             var message = new HttpRequestMessage(httpMethod, requestUri);
-
+            
             if (content != null)
             {
                 message.Content = CreateHttpContent(content);
