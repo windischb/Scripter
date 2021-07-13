@@ -35,12 +35,6 @@ namespace doob.Scripter.Module.Http
             return UseProxy(webProxy);
         }
 
-        //public HttpOptionsBuilder UseProxy(Uri proxy, SimpleCredentials credentials)
-        //{
-        //    return UseProxy(proxy, (NetworkCredential)credentials);
-        //}
-
-
         public HttpOptionsBuilder UseProxy(string proxy)
         {
             var uri = UriHelper.BuildUri(proxy);
@@ -52,12 +46,6 @@ namespace doob.Scripter.Module.Http
             var uri = UriHelper.BuildUri(proxy);
             return UseProxy(uri, credentials);
         }
-
-        //public HttpOptionsBuilder UseProxy(string proxy, SimpleCredentials credentials)
-        //{
-        //    var uri = UriHelper.BuildUri(proxy);
-        //    return UseProxy(uri, (NetworkCredential)credentials);
-        //}
 
         public HttpOptionsBuilder IgnoreProxy()
         {

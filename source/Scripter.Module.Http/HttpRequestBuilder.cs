@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,9 +22,15 @@ namespace doob.Scripter.Module.Http
             _httpHandlerOptions = httpHandlerOptions;
         }
 
-        public HttpRequestBuilder UsePath(string url)
+        public HttpRequestBuilder SetPath(params string[] url)
+        {            
+            _requestData.PathSegments = url.Where(u => String.IsNullOrEmpty(u)).SelectMany(u => u.Split('/')).ToList();
+            return this;
+        }
+
+        public HttpRequestBuilder AddPath(params string[] url)
         {
-            _requestData.Path = url;
+            _requestData.PathSegments.AddRange(url.Where(u => String.IsNullOrEmpty(u)).SelectMany(u => u.Split('/')).ToList());
             return this;
         }
 
@@ -112,6 +119,7 @@ namespace doob.Scripter.Module.Http
         public async Task<HttpResponse> SendRequestMessageAsync(HttpRequestMessage httpRequestMessage)
         {
             var cl = new HttpClient(HttpHandlerFactory.Build(_httpHandlerOptions));
+            
             var respMsg = await cl.SendAsync(httpRequestMessage);
             return new HttpResponse(respMsg);
         }

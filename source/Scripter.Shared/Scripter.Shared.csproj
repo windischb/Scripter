@@ -18,10 +18,11 @@
     <RepositoryType>git</RepositoryType>
     <PackageId>doob.Scripter.Shared</PackageId>
     <Product>doob.Scripter.Shared</Product>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="doob.Reflectensions" Version="6.2.0" />
+    <PackageReference Include="doob.Reflectensions" Version="6.3.4" />
     <PackageReference Include="NamedServices.Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
   </ItemGroup>
 
